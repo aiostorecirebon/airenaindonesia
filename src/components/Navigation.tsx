@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import logoAirena from "../assets/airena-logo.jpg";
+
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
@@ -11,6 +12,7 @@ const Navigation = () => {
     { path: "/tentang", label: "Tentang" },
     { path: "/layanan", label: "Layanan" },
     { path: "/wilayah", label: "Wilayah" },
+    { path: "/artikel", label: "Artikel" }, // perbaikan path sesuai route
     { path: "/kontak", label: "Book Now" },
   ];
 
@@ -52,6 +54,7 @@ const Navigation = () => {
           {/* Mobile menu button */}
           <div className="md:hidden">
             <button
+              aria-label={isOpen ? "Tutup menu" : "Buka menu"}
               onClick={() => setIsOpen(!isOpen)}
               className="text-foreground hover:text-brand-primary"
             >
@@ -82,7 +85,6 @@ const Navigation = () => {
                   {item.label}
                 </Link>
               ))}
-              <div className="pt-4 space-y-2"></div>
             </div>
           </div>
         )}
