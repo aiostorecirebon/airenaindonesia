@@ -126,32 +126,6 @@ const ServiceArea = () => {
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
             Wilayah Layanan AIRENA
           </h1>
-          <p className="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
-            Melayani seluruh Jawa Barat dengan teknisi terpercaya dan respon
-            cepat
-          </p>
-        </div>
-      </section>
-
-      {/* Service Features */}
-      <section className="section-padding">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {serviceFeatures.map((feature, index) => {
-              const Icon = feature.icon;
-              return (
-                <div key={index} className="card-hover text-center">
-                  <div className="w-16 h-16 bg-brand-primary-light rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Icon className="h-8 w-8 text-brand-primary" />
-                  </div>
-                  <h3 className="text-xl font-semibold mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-muted-foreground">{feature.description}</p>
-                </div>
-              );
-            })}
-          </div>
         </div>
       </section>
 
