@@ -1,20 +1,26 @@
 import React from "react";
+
 interface MapCardProps {
   branchName: string;
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
   shareLink: string; // https://maps.app.goo.gl/...
   square?: boolean;
   zoom?: number;
 }
+
 const MapCard: React.FC<MapCardProps> = ({
   branchName,
+  coordinates,
   shareLink,
   square = false,
   zoom = 15,
 }) => {
-  // Convert the share link into an embeddable URL pattern
-  const embedSrc = `https://www.google.com/maps?q=${encodeURIComponent(
-    shareLink
-  )}&z=${zoom}&output=embed`;
+  // Convert coordinates to embeddable URL pattern
+  const embedSrc = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1000!2d${coordinates.lng}!3d${coordinates.lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM!5e0!3m2!1sen!2sid!4v1234567890!5m2!1sen!2sid`;
+
   return (
     <section
       className="w-full max-w-3xl mx-auto border-2 border-brand-primary rounded-xl overflow-hidden shadow-lg bg-white"
@@ -61,10 +67,11 @@ const MapCard: React.FC<MapCardProps> = ({
           Buka di Google Maps
         </a>
         <small className="text-muted-foreground">
-          Zoom: {zoom} · Marker: {branchName}
+          Koordinat: {coordinates.lat}, {coordinates.lng}
         </small>
       </div>
     </section>
   );
 };
+
 export default MapCard;

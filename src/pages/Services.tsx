@@ -185,6 +185,9 @@ const Services = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+            {/* Desktop connecting line */}
+            <div className="hidden md:block absolute top-8 left-0 w-full h-1 bg-brand-primary/20 rounded-full"></div>
+
             {[
               {
                 step: "1",
@@ -208,19 +211,38 @@ const Services = () => {
               },
             ].map((process, index) => (
               <div key={index} className="text-center relative">
-                <div className="w-16 h-16 bg-brand-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold relative z-10">
+                {/* Step Circle */}
+                <div className="w-16 h-16 bg-brand-primary text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold relative z-20 shadow-lg border-4 border-white transition-all duration-300 hover:scale-110">
                   {process.step}
                 </div>
-                {/* Arrow connecting to next step */}
+
+                {/* Centered Arrow for desktop - positioned between circles */}
                 {index < 3 && (
-                  <div className="hidden md:block absolute top-6 left-1/2 transform translate-x-8 z-0">
-                    <ArrowRight className="h-8 w-8 text-brand-primary opacity-60" />
+                  <div className="hidden md:block absolute top-6 -right-4 z-30">
+                    <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-brand-primary/20">
+                      <ArrowRight className="h-4 w-4 text-brand-primary animate-pulse" />
+                    </div>
                   </div>
                 )}
-                <h3 className="text-xl font-semibold text-foreground mb-2">
-                  {process.title}
-                </h3>
-                <p className="text-muted-foreground">{process.desc}</p>
+
+                {/* Mobile Arrow (vertical) */}
+                {index < 3 && (
+                  <div className="md:hidden flex justify-center mb-4">
+                    <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-brand-primary/20">
+                      <ArrowRight className="h-4 w-4 text-brand-primary rotate-90" />
+                    </div>
+                  </div>
+                )}
+
+                {/* Content */}
+                <div className="space-y-3">
+                  <h3 className="text-xl font-semibold text-foreground">
+                    {process.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {process.desc}
+                  </p>
+                </div>
               </div>
             ))}
           </div>

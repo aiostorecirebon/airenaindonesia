@@ -1,29 +1,26 @@
-import { MapPin, Phone, Clock, MessageCircle } from "lucide-react";
-import { Link } from "react-router-dom";
+import { MapPin, Phone, Clock } from "lucide-react";
+
 const Footer = () => {
-  const handleWhatsApp = () => {
-    window.open("https://wa.me/6287811538848", "_blank");
-  };
-  const serviceAreas = ["Cirebon", "Indramayu", "Tasikmalaya", "Bandung"];
-  const services = [
-    "Cuci AC",
-    "Servis AC",
-    "Isi Freon",
-    "Instalasi AC",
-    "Bongkar Pasang",
-    "Perawatan Berkala",
+  // Data untuk wilayah layanan diubah menjadi array of objects
+  // untuk menyertakan nama dan URL Google Maps.
+  const serviceAreas = [
+    { name: "Cirebon", url: "https://maps.app.goo.gl/CBZcSeJp8fRPaWT9" },
+    { name: "Indramayu", url: "https://maps.app.goo.gl/BLy1UKmh6K4hJjem6" },
+    { name: "Bandung", url: "https://maps.app.goo.gl/BLy1UKmh6K4hJjem6" },
+    { name: "Tasikmalaya", url: "https://maps.app.goo.gl/BLy1UKmh6K4hJjem6" },
   ];
+
   return (
-    <footer className="bg-foreground text-white">
+    <footer className="bg-gray-800 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 items-start">
           {/* Company Info */}
           <div>
-            <div className="text-2xl font-bold text-brand-primary mb-4">
+            <div className="text-2xl font-bold text-[#01b2b7] mb-4">
               AIRENA INDONESIA
             </div>
             <p className="text-gray-300 mb-4">
-              Bersama Airena jaga AC kamu tetap dingin
+              Bersama Airena jaga AC kamu tetap dingin.
             </p>
             <div className="flex items-center text-gray-300 mb-2">
               <Clock className="h-4 w-4 mr-2" />
@@ -40,9 +37,16 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Wilayah Layanan</h3>
             <ul className="space-y-2 mb-6">
               {serviceAreas.map((area, index) => (
-                <li key={index} className="flex items-center text-gray-300">
-                  <MapPin className="h-3 w-3 mr-2 text-brand-primary" />
-                  <span className="text-sm">{area}</span>
+                <li key={index} className="flex items-center">
+                  <MapPin className="h-4 w-4 mr-2 text-[#01b2b7]" />
+                  <a
+                    href={area.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-300 hover:text-white transition-colors duration-200 text-sm"
+                  >
+                    {area.name}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -52,11 +56,12 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-700 mt-8 pt-6 text-center">
           <p className="text-gray-400 text-sm">
-            © 2024 AIRENA INDONESIA. All Rights Reserved.
+            © {new Date().getFullYear()} AIRENA INDONESIA. All Rights Reserved.
           </p>
         </div>
       </div>
     </footer>
   );
 };
+
 export default Footer;

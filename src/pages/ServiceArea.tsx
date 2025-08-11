@@ -120,12 +120,25 @@ const ServiceArea = () => {
   };
   return (
     <div>
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-brand-primary to-brand-primary-dark text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Wilayah Layanan AIRENA
-          </h1>
+      {/* Service Features */}
+      <section className="section-padding">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            {serviceFeatures.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <div key={index} className="card-hover text-center">
+                  <div className="w-16 h-16 bg-brand-primary-light rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Icon className="h-8 w-8 text-brand-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2">
+                    {feature.title}
+                  </h3>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
@@ -189,6 +202,17 @@ const ServiceArea = () => {
                     <div className="mt-6">
                       <MapCard
                         branchName={`Airena ${area.city}`}
+                        coordinates={
+                          area.city === "Cirebon"
+                            ? {
+                                lat: -6.730449803287912, // Added negative sign
+                                lng: 108.57649665948746,
+                              }
+                            : {
+                                lat: -6.437191269195009, // Added negative sign
+                                lng: 108.30315271200429,
+                              }
+                        }
                         shareLink={
                           area.city === "Cirebon"
                             ? "https://maps.app.goo.gl/CBZcSeJp8fRPaWT96"

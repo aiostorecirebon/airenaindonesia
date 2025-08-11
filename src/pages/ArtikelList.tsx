@@ -1,11 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-
-interface CoverImageAttributes {
-  url: string;
-  alternativeText?: string;
-  width?: number;
-  height?: number;
-}
+import { Calendar, User, ArrowRight } from "lucide-react";
 
 interface ContentBlock {
   type: string;
@@ -19,7 +13,7 @@ interface Artikel {
   id: number;
   documentId: string;
   title: string;
-  Content: ContentBlock[]; // Content adalah array dari blocks
+  Content: ContentBlock[];
   coverImage: {
     id: number;
     url: string;
@@ -73,7 +67,6 @@ const ArtikelList: React.FC = () => {
         throw new Error("Invalid API response structure");
       }
 
-      console.log("Processed articles:", data.data);
       setArtikels(data.data);
     } catch (err) {
       const errorMessage =
@@ -93,11 +86,6 @@ const ArtikelList: React.FC = () => {
     return coverImage?.url ? `${API_BASE_URL}${coverImage.url}` : null;
   };
 
-  const getImageAlt = (coverImage: any, title: string): string => {
-    return coverImage?.alternativeText || `Cover image for ${title}`;
-  };
-
-  // Function to extract text content from Content blocks
   const extractContentText = (contentBlocks: ContentBlock[]): string => {
     if (!Array.isArray(contentBlocks)) return "";
 
@@ -114,176 +102,233 @@ const ArtikelList: React.FC = () => {
 
   const truncateContent = (
     content: string,
-    maxLength: number = 150
+    maxLength: number = 120
   ): string => {
     if (content.length <= maxLength) return content;
     return content.substring(0, maxLength).trim() + "...";
   };
 
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    };
+    return date.toLocaleDateString("id-ID", options);
+  };
+
+  const getCategoryFromContent = (content: string): string => {
+    // Simple category logic based on content keywords
+    const lowerContent = content.toLowerCase();
+    if (lowerContent.includes("tips") || lowerContent.includes("cara"))
+      return "Tips & Trik";
+    if (lowerContent.includes("panduan") || lowerContent.includes("tutorial"))
+      return "Panduan";
+    if (
+      lowerContent.includes("perbedaan") ||
+      lowerContent.includes("pengetahuan")
+    )
+      return "Edukasi";
+    return "Tips & Trik";
+  };
+
+  const getCategoryColor = (category: string): string => {
+    switch (category) {
+      case "Tips & Trik":
+        return "bg-green-100 text-green-700";
+      case "Panduan":
+        return "bg-blue-100 text-blue-700";
+      case "Edukasi":
+        return "bg-purple-100 text-purple-700";
+      default:
+        return "bg-gray-100 text-gray-700";
+    }
+  };
+
   if (loading) {
     return (
-      <div style={{ textAlign: "center", padding: "20px" }}>
-        <p>Loading articles...</p>
+      <div className="min-h-screen bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 py-16">
+          {/* Header */}
+          <div className="text-center mb-16">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Artikel & <span className="text-[#01b2b7]">Tips AC</span>
+            </h1>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Temukan tips, panduan, dan informasi terbaru seputar perawatan dan
+              perbaikan AC dari para ahli AIRENA.
+            </p>
+          </div>
+
+          {/* Loading Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2, 3].map((i) => (
+              <div
+                key={i}
+                className="bg-white rounded-xl overflow-hidden shadow-lg"
+              >
+                <div className="h-64 bg-gray-200 animate-pulse"></div>
+                <div className="p-6">
+                  <div className="h-4 bg-gray-200 rounded animate-pulse mb-4"></div>
+                  <div className="h-6 bg-gray-200 rounded animate-pulse mb-3"></div>
+                  <div className="h-4 bg-gray-200 rounded animate-pulse mb-4"></div>
+                  <div className="h-4 bg-gray-200 rounded animate-pulse"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div style={{ textAlign: "center", padding: "20px", color: "#d32f2f" }}>
-        <h2>Error</h2>
-        <p>{error}</p>
-        <button
-          onClick={fetchArtikels}
-          style={{
-            padding: "8px 16px",
-            backgroundColor: "#1976d2",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
-        >
-          Try Again
-        </button>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center max-w-md mx-auto px-4">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Oops!</h2>
+          <p className="text-gray-600 mb-8">{error}</p>
+          <button
+            onClick={fetchArtikels}
+            className="bg-[#01b2b7] hover:bg-[#01b2b7] text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
+          >
+            Coba Lagi
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
-    <div style={{ maxWidth: "800px", margin: "0 auto", padding: "20px" }}>
-      <h1 style={{ textAlign: "center", marginBottom: "30px" }}>
-        Daftar Artikel
-      </h1>
-
-      {artikels.length === 0 ? (
-        <div style={{ textAlign: "center", padding: "40px" }}>
-          <p>Tidak ada artikel yang tersedia.</p>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 py-16">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            Artikel & <span className="text-[#01b2b7]">Tips AC</span>
+          </h1>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Temukan tips, panduan, dan informasi terbaru seputar perawatan dan
+            perbaikan AC dari para ahli AIRENA.
+          </p>
         </div>
-      ) : (
-        <div style={{ display: "grid", gap: "20px" }}>
-          {artikels.map((artikel) => {
-            console.log("Processing artikel:", artikel);
 
-            const { id, title, Content, coverImage, published } = artikel;
-            const imageUrl = getImageUrl(coverImage);
-            const contentText = extractContentText(Content);
+        {/* Articles Grid */}
+        {artikels.length === 0 ? (
+          <div className="text-center py-16">
+            <div className="mb-8">
+              <div className="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center">
+                <span className="text-4xl text-gray-400">📝</span>
+              </div>
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              Belum Ada Artikel
+            </h3>
+            <p className="text-gray-600 mb-8">
+              Artikel dan tips menarik akan segera hadir untuk Anda.
+            </p>
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+              {artikels.map((artikel) => {
+                const imageUrl = getImageUrl(artikel.coverImage);
+                const contentText = extractContentText(artikel.Content);
+                const category = getCategoryFromContent(contentText);
 
-            return (
-              <article
-                key={id}
-                style={{
-                  border: "1px solid #e0e0e0",
-                  borderRadius: "8px",
-                  padding: "20px",
-                  backgroundColor: "#fff",
-                  boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-                  transition: "box-shadow 0.3s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow =
-                    "0 4px 8px rgba(0,0,0,0.15)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
-                }}
-              >
-                {imageUrl && (
-                  <div style={{ marginBottom: "15px" }}>
-                    <img
-                      src={imageUrl}
-                      alt={getImageAlt(coverImage, title)}
-                      style={{
-                        width: "100%",
-                        maxWidth: "400px",
-                        height: "200px",
-                        objectFit: "cover",
-                        borderRadius: "4px",
-                      }}
-                      onError={(e) => {
-                        e.currentTarget.style.display = "none";
-                      }}
-                    />
-                  </div>
-                )}
-
-                <h2
-                  style={{
-                    margin: "0 0 10px 0",
-                    fontSize: "1.5rem",
-                    color: "#333",
-                    cursor: "pointer",
-                    transition: "color 0.3s ease",
-                  }}
-                  onClick={() => {
-                    // Navigate to single article page
-                    window.location.href = `/artikel/${artikel.slug}`;
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = "#1976d2";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = "#333";
-                  }}
-                >
-                  {title || "Untitled Article"}
-                </h2>
-
-                {published && (
-                  <p
-                    style={{
-                      margin: "0 0 10px 0",
-                      fontSize: "0.9rem",
-                      color: "#999",
+                return (
+                  <article
+                    key={artikel.id}
+                    className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group cursor-pointer"
+                    onClick={() => {
+                      window.location.href = `/artikel/${artikel.slug}`;
                     }}
                   >
-                    Published: {new Date(published).toLocaleDateString()}
-                  </p>
-                )}
+                    {/* Image */}
+                    <div className="relative h-64 overflow-hidden">
+                      {imageUrl ? (
+                        <img
+                          src={imageUrl}
+                          alt={
+                            artikel.coverImage?.alternativeText || artikel.title
+                          }
+                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          onError={(e) => {
+                            e.currentTarget.src =
+                              "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23a7d8d8'/%3E%3Ctext x='200' y='150' font-family='Arial, sans-serif' font-size='18' fill='white' text-anchor='middle' dominant-baseline='middle'%3EComing Soon%3C/text%3E%3C/svg%3E";
+                          }}
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-[#01b2b7] to-[#01b2b7] flex items-center justify-center">
+                          <span className="text-white text-lg font-semibold">
+                            Coming Soon
+                          </span>
+                        </div>
+                      )}
 
-                <p
-                  style={{
-                    margin: "0",
-                    lineHeight: "1.6",
-                    color: "#666",
-                  }}
-                >
-                  {contentText
-                    ? truncateContent(contentText)
-                    : "No content available"}
-                </p>
+                      {/* Category Badge */}
+                      <div className="absolute top-4 left-4">
+                        <span
+                          className={`px-3 py-1 rounded-full text-sm font-medium ${getCategoryColor(
+                            category
+                          )}`}
+                        >
+                          {category}
+                        </span>
+                      </div>
+                    </div>
 
-                <button
-                  onClick={() => {
-                    window.location.href = `/artikel/${artikel.slug}`;
-                  }}
-                  style={{
-                    display: "inline-block",
-                    marginTop: "15px",
-                    padding: "8px 16px",
-                    backgroundColor: "#1976d2",
-                    color: "white",
-                    textDecoration: "none",
-                    border: "none",
-                    borderRadius: "4px",
-                    fontSize: "0.9rem",
-                    cursor: "pointer",
-                    transition: "background-color 0.3s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = "#1565c0";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "#1976d2";
-                  }}
-                >
-                  Baca Selengkapnya
-                </button>
-              </article>
-            );
-          })}
-        </div>
-      )}
+                    {/* Content */}
+                    <div className="p-6">
+                      {/* Date */}
+                      <div className="flex items-center text-gray-500 text-sm mb-3">
+                        <Calendar className="w-4 h-4 mr-2" />
+                        {formatDate(artikel.published)}
+                      </div>
+
+                      {/* Title */}
+                      <h2 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#01b2b7] transition-colors duration-200">
+                        {artikel.title}
+                      </h2>
+
+                      {/* Excerpt */}
+                      <p className="text-gray-600 leading-relaxed mb-4">
+                        {contentText
+                          ? truncateContent(contentText)
+                          : "Content will be available soon..."}
+                      </p>
+
+                      {/* Footer */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center text-gray-500 text-sm">
+                          <User className="w-4 h-4 mr-2" />
+                          <span>Tim AIRENA</span>
+                        </div>
+
+                        <div className="text-[#01b2b7] font-semibold text-sm flex items-center group-hover:text-[#01b2b7]">
+                          Baca Selengkapnya
+                          <ArrowRight className="w-4 h-4 ml-1 transition-transform duration-200 group-hover:translate-x-1" />
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+
+            {/* Load More Button */}
+            <div className="text-center">
+              <button
+                onClick={fetchArtikels}
+                className="bg-[#01b2b7] hover:bg-[#01b2b7] text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                Muat Lebih Banyak Artikel
+              </button>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };
