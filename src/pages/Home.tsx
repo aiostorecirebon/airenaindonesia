@@ -130,11 +130,7 @@ const Home = () => {
       answer:
         "Biaya servis AC mulai dari Rp 75.000 tergantung jenis kerusakan dan tipe AC Anda.",
     },
-    {
-      question: "Apakah teknisi bisa datang hari ini?",
-      answer:
-        "Ya, kami menyediakan layanan same-day service tergantung ketersediaan jadwal teknisi di wilayah Anda.",
-    },
+
     {
       question: "Jenis AC apa saja yang dilayani?",
       answer:

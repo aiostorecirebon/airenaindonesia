@@ -98,7 +98,8 @@ const ServiceArea = () => {
     {
       icon: Clock,
       title: "Respon Cepat",
-      description: "Teknisi siap datang dalam waktu 30-120 menit",
+      description:
+        "Kami siap membantu Anda menemukan soludi untuk Air Conditioner Anda",
     },
     {
       icon: MapPin,
@@ -127,11 +128,12 @@ const ServiceArea = () => {
             Wilayah Layanan Kami
           </h1>
           <p className="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
-            Kami menjangkau kota-kota besar di Jawa Barat, siap memberikan layanan AC terbaik untuk Anda.
+            Kami menjangkau kota-kota besar di Jawa Barat, siap memberikan
+            layanan AC terbaik untuk Anda.
           </p>
         </div>
       </section>
-    
+
       {/* Service Features */}
       <section className="section-padding">
         <div className="max-w-6xl mx-auto">
