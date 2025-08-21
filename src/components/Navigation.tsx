@@ -13,7 +13,6 @@ const Navigation = () => {
     { path: "/layanan", label: "Layanan" },
     { path: "/wilayah", label: "Wilayah" },
     { path: "/artikel", label: "Artikel" }, // perbaikan path sesuai route
-    { path: "/kontak", label: "Book Now" },
   ];
 
   const isActive = (path: string) => location.pathname === path;

@@ -115,13 +115,33 @@ const Home = () => {
     {
       icon: Snowflake,
       title: "Cuci AC",
-      desc: "Pembersihan menyeluruh AC Anda",
+      desc: "Pembersihan menyeluruh unit indoor dan outdoor AC dengan teknik profesional",
     },
-    { icon: Wrench, title: "Servis AC", desc: "Perbaikan dan maintenance AC" },
-    { icon: Settings, title: "Isi Freon", desc: "Penambahan freon semua tipe" },
-    { icon: Users, title: "Instalasi AC", desc: "Pemasangan AC profesional" },
-    { icon: CheckCircle, title: "Bongkar Pasang", desc: "Relokasi AC aman" },
-    { icon: Shield, title: "Perawatan Berkala", desc: "Maintenance rutin AC" },
+    {
+      icon: Wrench,
+      title: "Servis AC",
+      desc: "Diagnosa dan perbaikan berbagai kerusakan AC dengan teknisi berpengalaman",
+    },
+    {
+      icon: Settings,
+      title: "Isi Freon",
+      desc: "Pengisian freon berkualitas untuk semua tipe AC (R22, R32, R410A)",
+    },
+    {
+      icon: Users,
+      title: "Instalasi AC",
+      desc: "Pemasangan AC baru dengan instalasi pipa dan kelistrikan yang rapi",
+    },
+    {
+      icon: CheckCircle,
+      title: "Bongkar Pasang",
+      desc: "Layanan bongkar pasang AC untuk pindahan atau renovasi dengan aman",
+    },
+    {
+      icon: Shield,
+      title: "Perawatan Berkala",
+      desc: "Program perawatan berkala setiap 3-6 bulan untuk menjaga performa AC",
+    },
   ];
 
   const faqs = [
@@ -171,10 +191,11 @@ const Home = () => {
             <div className="w-full lg:w-2/5">
               <div className="bg-white border border-gray-200 rounded-2xl p-8 lg:p-12 shadow-sm">
                 <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-[#01b2b7] leading-tight">
-                  Mengapa Pilih AIRENA?
+                  Percayakan perawatan AC Anda
                 </h2>
                 <p className="text-lg text-gray-600 mt-4">
-                  Kepercayaan ribuan pelanggan di Jawa Barat
+                  Airena telah dipercayai oleh ribuan pelanggan di Cirebon,
+                  Indramayu, Bandung, dan Tasikmalaya.
                 </p>
               </div>
             </div>
