@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -13,31 +13,39 @@
     --brand-primary-hover: 182 98% 30%;
     --brand-primary-light: 182 98% 85%;
     --brand-primary-dark: 182 98% 25%;
-    
+
     /* Base Colors */
     --background: 0 0% 100%;
     --foreground: 215 28% 17%;
     --muted-background: 210 40% 98%;
     --muted-foreground: 215 20% 65%;
-    
+
     /* Card & Surface Colors */
     --card: 0 0% 100%;
     --card-border: 210 20% 90%;
     --section-background: 210 40% 98%;
-    
+
     /* State Colors */
     --success: 142 71% 45%;
     --warning: 38 92% 50%;
     --error: 0 84% 60%;
-    
+
     /* Gradients */
-    --gradient-brand: linear-gradient(135deg, hsl(var(--brand-primary)), hsl(var(--brand-primary-hover)));
-    --gradient-light: linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted-background)));
-    
+    --gradient-brand: linear-gradient(
+      135deg,
+      hsl(var(--brand-primary)),
+      hsl(var(--brand-primary-hover))
+    );
+    --gradient-light: linear-gradient(
+      180deg,
+      hsl(var(--background)),
+      hsl(var(--muted-background))
+    );
+
     /* Shadows */
     --shadow-card: 0 2px 10px -2px hsl(var(--brand-primary) / 0.1);
     --shadow-hover: 0 4px 20px -4px hsl(var(--brand-primary) / 0.2);
-    
+
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -131,8 +139,13 @@
   body {
     @apply bg-background text-foreground font-inter antialiased;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-semibold tracking-tight;
   }
 }
@@ -144,42 +157,60 @@
            px-6 py-3 rounded-lg font-medium transition-all duration-300
            shadow-lg hover:shadow-xl hover:scale-105;
   }
-  
+
   .btn-brand-outline {
     @apply border-2 border-brand-primary text-brand-primary hover:bg-brand-primary 
            hover:text-white px-6 py-3 rounded-lg font-medium transition-all duration-300;
   }
-  
+
   /* Card Variants */
   .card-hover {
     @apply bg-card border border-card-border rounded-xl p-6
            transition-all duration-300 hover:shadow-hover hover:-translate-y-1;
   }
-  
+
   .service-card {
     @apply card-hover text-center cursor-pointer;
   }
-  
+
   /* Section Styles */
   .section-padding {
     @apply py-16 px-4 sm:px-6 lg:px-8;
   }
-  
+
   .section-background {
     @apply bg-section-background;
   }
-  
+
   /* Animations */
   .fade-in {
     @apply opacity-0 translate-y-4 transition-all duration-700 ease-out;
   }
-  
+
   .fade-in.visible {
     @apply opacity-100 translate-y-0;
   }
-  
+
   /* WhatsApp Button */
   .whatsapp-btn {
     @apply btn-brand inline-flex items-center gap-2 text-lg;
   }
+}
+
+@keyframes brandScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.brand-scroll {
+  animation: brandScroll 10s linear infinite;
+  -webkit-animation: brandScroll 10s linear infinite;
+}
+
+.brand-scroll:hover {
+  animation-play-state: paused;
 }

@@ -76,7 +76,7 @@ const About = () => {
                 tertinggi. Kepuasan pelanggan adalah prioritas utama kami.
               </p>
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                Melayani Cirebon, Indramayu, Tasikmalaya, dan Bandung
+                Melayani Bandung, Cirebon, Tasikmalaya, Indramayu
               </p>
               <div className="flex flex-wrap gap-4">
                 <div className="flex items-center text-brand-primary">
@@ -141,9 +141,10 @@ const About = () => {
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-4">Visi</h3>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Menjadi penyedia layanan AC nomor satu di Cirebon dan sekitarnya
-                yang dipercaya oleh masyarakat dengan memberikan solusi terbaik
-                untuk kenyamanan udara.
+                Menjadi penyedia layanan AC nomor satu di Bandung, Cirebon,
+                Tasikmalaya, Indramayu dan sekitarnya yang dipercaya oleh
+                masyarakat dengan memberikan solusi terbaik untuk kenyamanan
+                udara.
               </p>
             </div>
 

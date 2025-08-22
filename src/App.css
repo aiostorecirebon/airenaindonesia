@@ -40,3 +40,21 @@
 .read-the-docs {
   color: #888;
 }
+
+@keyframes brandScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.brand-scroll {
+  animation: brandScroll 10s linear infinite;
+  -webkit-animation: brandScroll 10s linear infinite;
+}
+
+.brand-scroll:hover {
+  animation-play-state: paused;
+}

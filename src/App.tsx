@@ -10,7 +10,6 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Services from "./pages/Services";
 import ServiceArea from "./pages/ServiceArea";
-import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 // Import artikel components - FIXED: Sesuaikan path jika file ada di pages/
 import Artikel from "./pages/Artikel";
@@ -51,7 +50,7 @@ const App = () => (
             <Route path="/tentang" element={<About />} />
             <Route path="/layanan" element={<Services />} />
             <Route path="/wilayah" element={<ServiceArea />} />
-            <Route path="/kontak" element={<Contact />} />
+
             {/* Artikel routes */}
 
             <Route path="*" element={<NotFound />} />
