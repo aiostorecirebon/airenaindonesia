@@ -1,10 +1,69 @@
-import React, { useState, useEffect } from "react";
-import {
-  MessageCircle,
-  Navigation,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+import React, { useState, useEffect, useCallback } from "react";
+
+// Simple icon components to replace lucide-react icons
+const MessageCircle = ({ className }) => (
+  <svg
+    className={className}
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+    />
+  </svg>
+);
+
+const Navigation = ({ className }) => (
+  <svg
+    className={className}
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+    />
+  </svg>
+);
+
+const ChevronLeft = ({ className }) => (
+  <svg
+    className={className}
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M15 19l-7-7 7-7"
+    />
+  </svg>
+);
+
+const ChevronRight = ({ className }) => (
+  <svg
+    className={className}
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M9 5l7 7-7 7"
+    />
+  </svg>
+);
 
 // Brand Moving Section Component
 const BrandSection = () => {
@@ -72,9 +131,8 @@ const BrandSection = () => {
   );
 };
 
-// This is the new section for service areas with interactive maps. (KODE ASLI DIKEMBALIKAN)
+// Service Areas Section
 const WilayahLayanan = () => {
-  // Updated area data with coordinates, zoom level, and Google Maps URL
   const areas = [
     {
       name: "Airena Cirebon",
@@ -109,7 +167,6 @@ const WilayahLayanan = () => {
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {areas.map((area, index) => {
-            // Construct the Google Maps embed URL
             const embedUrl = `https://maps.google.com/maps?q=${area.lat},${area.lng}&z=${area.zoom}&output=embed&hl=id`;
 
             return (
@@ -117,12 +174,10 @@ const WilayahLayanan = () => {
                 key={index}
                 className="border-4 border-[#01b2b7] rounded-2xl overflow-hidden bg-white shadow-lg flex flex-col"
               >
-                {/* Header */}
                 <div className="bg-[#01b2b7] text-white text-center py-3">
                   <h3 className="text-xl font-semibold">{area.name}</h3>
                 </div>
 
-                {/* Map Area using iframe */}
                 <div className="relative h-80 w-full flex-grow">
                   <iframe
                     title={area.name}
@@ -133,10 +188,9 @@ const WilayahLayanan = () => {
                     allowFullScreen={false}
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                  ></iframe>
+                  />
                 </div>
 
-                {/* Bottom section */}
                 <div className="p-4 bg-white flex items-center justify-between">
                   <a
                     href={area.mapUrl}
@@ -161,13 +215,106 @@ const WilayahLayanan = () => {
   );
 };
 
-// Featured Services Slider Component - REVISED AND FIXED
+// Gallery Section
+const GallerySection = () => {
+  const galleryImages = [
+    {
+      src: "/public/gallery/gallery-1.jpg",
+      alt: "Cuci AC Split",
+      title: "Cuci AC Split",
+    },
+    {
+      src: "/public/gallery/gallery-2.jpg",
+      alt: "Servis AC Outdoor",
+      title: "Servis AC Outdoor",
+    },
+    {
+      src: "/public/gallery/gallery-3.jpg",
+      alt: "Instalasi AC Baru",
+      title: "Instalasi AC Baru",
+    },
+    {
+      src: "/public/gallery/gallery-4.jpg",
+      alt: "Teknisi Professional",
+      title: "Teknisi Professional",
+    },
+    {
+      src: "/public/gallery/gallery-5.jpg",
+      alt: "Perawatan AC Rutin",
+      title: "Perawatan AC Rutin",
+    },
+    {
+      src: "/public/gallery/gallery-6.jpg",
+      alt: "Bongkar Pasang AC",
+      title: "Bongkar Pasang AC",
+    },
+    {
+      src: "/public/gallery/gallery-7.jpg",
+      alt: "Isi Freon AC",
+      title: "Isi Freon AC",
+    },
+    {
+      src: "/public/gallery/gallery-8.jpg",
+      alt: "AC Cassette Service",
+      title: "AC Cassette Service",
+    },
+    {
+      src: "/public/gallery/gallery-9.jpg",
+      alt: "Hasil Kerja Rapi",
+      title: "Hasil Kerja Rapi",
+    },
+  ];
+
+  return (
+    <section className="py-16 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Galeri Pekerjaan Kami
+          </h2>
+          <p className="text-xl text-gray-600">
+            Lihat hasil kerja profesional tim AIRENA
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {galleryImages.map((image, index) => (
+            <div
+              key={index}
+              className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+            >
+              <div className="aspect-square bg-gray-200">
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  onError={(e) => {
+                    e.currentTarget.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23f3f4f6'/%3E%3Ctext x='200' y='200' text-anchor='middle' dy='.3em' fill='%236b7280' font-family='Arial, sans-serif' font-size='16'%3E${image.title}%3C/text%3E%3C/svg%3E`;
+                  }}
+                />
+              </div>
+
+              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-end">
+                <div className="w-full p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                  <h3 className="text-lg font-semibold">{image.title}</h3>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Improved Featured Services Slider Component
 const FeaturedServicesSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [itemsPerSlide, setItemsPerSlide] = useState(3);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
+  const [autoSlideEnabled, setAutoSlideEnabled] = useState(true);
 
   const featuredServices = [
     {
@@ -202,6 +349,7 @@ const FeaturedServicesSlider = () => {
     },
   ];
 
+  // Update items per slide based on screen size
   useEffect(() => {
     const updateItemsPerSlide = () => {
       const width = window.innerWidth;
@@ -215,59 +363,99 @@ const FeaturedServicesSlider = () => {
     return () => window.removeEventListener("resize", updateItemsPerSlide);
   }, []);
 
-  const totalSlides = Math.ceil(featuredServices.length / itemsPerSlide);
+  const totalSlides = Math.max(
+    1,
+    Math.ceil(featuredServices.length / itemsPerSlide)
+  );
 
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % totalSlides);
-  const prevSlide = () =>
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  }, [totalSlides]);
+
+  const prevSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  }, [totalSlides]);
 
+  // Auto slide functionality
   useEffect(() => {
-    if (isDragging) return;
-    const autoSlide = setInterval(nextSlide, 5000);
-    return () => clearInterval(autoSlide);
-  }, [currentSlide, isDragging, totalSlides]);
+    if (!autoSlideEnabled || isDragging || totalSlides <= 1) return;
 
-  const handleStart = (clientX: number) => {
+    const autoSlide = setInterval(nextSlide, 4000);
+    return () => clearInterval(autoSlide);
+  }, [nextSlide, autoSlideEnabled, isDragging, totalSlides]);
+
+  const handleStart = useCallback((clientX) => {
     setIsDragging(true);
     setStartX(clientX);
     setDragOffset(0);
-  };
+    setAutoSlideEnabled(false);
+  }, []);
 
-  const handleMove = (clientX: number) => {
-    if (!isDragging) return;
-    setDragOffset(clientX - startX);
-  };
+  const handleMove = useCallback(
+    (clientX) => {
+      if (!isDragging) return;
+      const offset = clientX - startX;
+      const maxOffset = 100;
+      setDragOffset(Math.max(-maxOffset, Math.min(maxOffset, offset)));
+    },
+    [isDragging, startX]
+  );
 
-  const handleEnd = () => {
+  const handleEnd = useCallback(() => {
     if (!isDragging) return;
+
     const threshold = 50;
     if (Math.abs(dragOffset) > threshold) {
-      dragOffset > 0 ? prevSlide() : nextSlide();
+      if (dragOffset > 0) {
+        prevSlide();
+      } else {
+        nextSlide();
+      }
     }
+
     setIsDragging(false);
     setDragOffset(0);
-  };
 
+    setTimeout(() => setAutoSlideEnabled(true), 5000);
+  }, [isDragging, dragOffset, nextSlide, prevSlide]);
+
+  // Global event listeners for drag
   useEffect(() => {
-    const handleGlobalMove = (e: MouseEvent | TouchEvent) => {
-      if (isDragging) {
-        const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
-        handleMove(clientX);
-      }
+    const handleGlobalMove = (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
+      handleMove(clientX);
     };
 
-    window.addEventListener("mousemove", handleGlobalMove);
-    window.addEventListener("touchmove", handleGlobalMove);
-    window.addEventListener("mouseup", handleEnd);
-    window.addEventListener("touchend", handleEnd);
+    const handleGlobalEnd = () => handleEnd();
+
+    if (isDragging) {
+      document.addEventListener("mousemove", handleGlobalMove, {
+        passive: false,
+      });
+      document.addEventListener("touchmove", handleGlobalMove, {
+        passive: false,
+      });
+      document.addEventListener("mouseup", handleGlobalEnd);
+      document.addEventListener("touchend", handleGlobalEnd);
+      document.body.style.userSelect = "none";
+    }
 
     return () => {
-      window.removeEventListener("mousemove", handleGlobalMove);
-      window.removeEventListener("touchmove", handleGlobalMove);
-      window.removeEventListener("mouseup", handleEnd);
-      window.removeEventListener("touchend", handleEnd);
+      document.removeEventListener("mousemove", handleGlobalMove);
+      document.removeEventListener("touchmove", handleGlobalMove);
+      document.removeEventListener("mouseup", handleGlobalEnd);
+      document.removeEventListener("touchend", handleGlobalEnd);
+      document.body.style.userSelect = "";
     };
-  }, [isDragging]);
+  }, [isDragging, handleMove, handleEnd]);
+
+  const goToSlide = useCallback((index) => {
+    setCurrentSlide(index);
+    setAutoSlideEnabled(false);
+    setTimeout(() => setAutoSlideEnabled(true), 5000);
+  }, []);
 
   return (
     <section className="py-16 bg-gray-50">
@@ -281,40 +469,46 @@ const FeaturedServicesSlider = () => {
           </p>
         </div>
 
-        <div className="relative">
+        <div className="relative px-12 py-8">
           <button
             onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg hover:bg-[#01b2b7] hover:text-white transition-all"
-            aria-label="Previous"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white rounded-full p-3 shadow-lg hover:bg-[#01b2b7] hover:text-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={totalSlides <= 1}
+            aria-label="Previous slide"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
+
           <button
             onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg hover:bg-[#01b2b7] hover:text-white transition-all"
-            aria-label="Next"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white rounded-full p-3 shadow-lg hover:bg-[#01b2b7] hover:text-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={totalSlides <= 1}
+            aria-label="Next slide"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
 
           <div
-            className="overflow-hidden cursor-grab active:cursor-grabbing"
-            onMouseDown={(e) => handleStart(e.clientX)}
+            className="overflow-hidden cursor-grab active:cursor-grabbing select-none"
+            onMouseDown={(e) => {
+              e.preventDefault();
+              handleStart(e.clientX);
+            }}
             onTouchStart={(e) => handleStart(e.touches[0].clientX)}
           >
             <div
-              className="flex"
+              className="flex transition-transform duration-300 ease-out"
               style={{
                 transform: `translateX(calc(-${
                   currentSlide * 100
                 }% + ${dragOffset}px))`,
-                transition: isDragging ? "none" : "transform 0.5s ease-in-out",
+                transition: isDragging ? "none" : "transform 0.3s ease-out",
               }}
             >
               {Array.from({ length: totalSlides }).map((_, slideIndex) => (
-                <div key={slideIndex} className="w-full flex-shrink-0">
+                <div key={slideIndex} className="w-full flex-shrink-0 px-2">
                   <div
-                    className={`grid gap-6 px-4 ${
+                    className={`grid gap-6 ${
                       itemsPerSlide === 1
                         ? "grid-cols-1"
                         : itemsPerSlide === 2
@@ -329,19 +523,25 @@ const FeaturedServicesSlider = () => {
                       )
                       .map((service, index) => (
                         <div
-                          key={index}
-                          className="bg-white rounded-xl shadow-md group transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col overflow-hidden"
+                          key={`${slideIndex}-${index}`}
+                          className="bg-white rounded-xl shadow-lg group transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col overflow-hidden"
                         >
-                          <img
-                            src={service.image}
-                            alt={service.title}
-                            className="w-full h-48 object-cover"
-                          />
+                          <div className="w-full h-48 overflow-hidden bg-gray-100">
+                            <img
+                              src={service.image}
+                              alt={service.title}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              onError={(e) => {
+                                e.currentTarget.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f3f4f6'/%3E%3Ctext x='200' y='150' text-anchor='middle' dy='.3em' fill='%236b7280' font-family='Arial, sans-serif' font-size='16'%3E${service.title}%3C/text%3E%3C/svg%3E`;
+                              }}
+                              draggable={false}
+                            />
+                          </div>
                           <div className="p-6 flex flex-col flex-grow">
-                            <h3 className="text-xl font-semibold mb-3 text-gray-900">
+                            <h3 className="text-xl font-semibold mb-3 text-gray-900 group-hover:text-[#01b2b7] transition-colors">
                               {service.title}
                             </h3>
-                            <p className="text-gray-600 leading-relaxed flex-grow">
+                            <p className="text-gray-600 leading-relaxed flex-grow text-sm sm:text-base">
                               {service.desc}
                             </p>
                           </div>
@@ -353,18 +553,22 @@ const FeaturedServicesSlider = () => {
             </div>
           </div>
 
-          <div className="flex justify-center mt-8 space-x-3">
-            {Array.from({ length: totalSlides }).map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all ${
-                  currentSlide === index ? "bg-[#01b2b7] w-8" : "bg-gray-300"
-                }`}
-                aria-label={`Slide ${index + 1}`}
-              />
-            ))}
-          </div>
+          {totalSlides > 1 && (
+            <div className="flex justify-center mt-8 space-x-3">
+              {Array.from({ length: totalSlides }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`h-3 rounded-full transition-all duration-300 ${
+                    currentSlide === index
+                      ? "bg-[#01b2b7] w-8"
+                      : "bg-gray-300 w-3 hover:bg-gray-400"
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>
@@ -373,14 +577,14 @@ const FeaturedServicesSlider = () => {
 
 // Main Home Component
 const Home = () => {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openFaq, setOpenFaq] = useState(null);
 
-  const handleWhatsApp = () => {
-    window.open(
-      "https://wa.me/6287811538848?text=Halo%20AIRENA,%20saya%20ingin%20konsultasi%20layanan%20AC",
-      "_blank"
+  const handleWhatsApp = useCallback(() => {
+    const message = encodeURIComponent(
+      "Halo AIRENA, saya ingin konsultasi layanan AC"
     );
-  };
+    window.open(`https://wa.me/6287811538848?text=${message}`, "_blank");
+  }, []);
 
   const faqs = [
     {
@@ -400,8 +604,13 @@ const Home = () => {
     },
   ];
 
+  const toggleFaq = useCallback((index) => {
+    setOpenFaq((prev) => (prev === index ? null : index));
+  }, []);
+
   return (
     <div>
+      {/* Hero Section */}
       <section className="bg-gradient-to-br from-[#01b2b7] to-[#008a8e] text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
@@ -420,6 +629,7 @@ const Home = () => {
         </div>
       </section>
 
+      {/* About Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-12 items-stretch">
@@ -470,6 +680,11 @@ const Home = () => {
                         src={item.img}
                         alt={`${item.title} Icon`}
                         className="w-8 h-8"
+                        onError={(e) => {
+                          e.currentTarget.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23ffffff' rx='4'/%3E%3Ctext x='16' y='16' text-anchor='middle' dy='.3em' fill='%2301b2b7' font-family='Arial, sans-serif' font-size='10'%3E${item.title.charAt(
+                            0
+                          )}%3C/text%3E%3C/svg%3E`;
+                        }}
                       />
                     </div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -484,10 +699,19 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Featured Services Slider */}
       <FeaturedServicesSlider />
+
+      {/* Brand Section */}
       <BrandSection />
+
+      {/* Gallery Section */}
+      <GallerySection />
+
+      {/* Service Areas */}
       <WilayahLayanan />
 
+      {/* FAQ Section */}
       <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -503,7 +727,7 @@ const Home = () => {
               >
                 <button
                   className="w-full text-left px-6 py-4 font-semibold text-gray-900 hover:text-[#01b2b7] transition-colors flex justify-between items-center"
-                  onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                  onClick={() => toggleFaq(index)}
                 >
                   {faq.question}
                   <span
