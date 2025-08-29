@@ -117,7 +117,7 @@ const BrandSection = () => {
                 <img
                   src={brand.image}
                   alt={brand.name}
-                  className="h-7 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110"
+                  className="h-7 w-auto "
                   onError={(e) => {
                     e.currentTarget.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='64' viewBox='0 0 120 64'%3E%3Crect width='120' height='64' fill='%23f3f4f6' rx='8'/%3E%3Ctext x='60' y='32' text-anchor='middle' dy='.3em' fill='%236b7280' font-family='Arial, sans-serif' font-size='12'%3E${brand.name}%3C/text%3E%3C/svg%3E`;
                   }}
@@ -140,7 +140,7 @@ const WilayahLayanan = () => {
       lat: -6.730449803287912,
       lng: 108.57649665948746,
       zoom: 17,
-      mapUrl: "https://maps.app.goo.gl/CBZcSeJp8fRPaWTA9",
+      mapUrl: "https://maps.app.goo.gl/CBZcSeJp8fRPaWT96",
     },
     {
       name: "Airena Indramayu",
@@ -270,11 +270,8 @@ const GallerySection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Galeri Pekerjaan Kami
+            Cek Galeri Kami
           </h2>
-          <p className="text-xl text-gray-600">
-            Lihat hasil kerja profesional tim AIRENA
-          </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -632,12 +629,12 @@ const Home = () => {
       {/* About Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-12 items-stretch">
-            <div className="w-full lg:w-1/2">
+          <div className="flex flex-col lg:flex-row gap-12 items-stretch min-h-[600px] lg:min-h-[550px]">
+            <div className="w-full lg:w-1/2 flex">
               <img
                 src="/gambar.png"
                 alt="Teknisi AIRENA Professional"
-                className="w-full h-full object-cover rounded-lg shadow-lg"
+                className="w-full h-full"
                 onError={(e) => {
                   e.currentTarget.src =
                     "https://via.placeholder.com/600x600.png?text=Image+Not+Found";
@@ -698,7 +695,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
       {/* Featured Services Slider */}
       <FeaturedServicesSlider />
 
