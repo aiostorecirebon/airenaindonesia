@@ -68,26 +68,26 @@ const ChevronRight = ({ className }) => (
 // Brand Moving Section Component
 const BrandSection = () => {
   const originalBrands = [
-    { name: "Aqua", image: "/public/brand/aqua.png" },
-    { name: "Ariston", image: "/public/brand/ariston.png" },
-    { name: "Beko", image: "/public/brand/beko.png" },
-    { name: "Changhong", image: "/public/brand/changhong.png" },
-    { name: "Daikin", image: "/public/brand/daikin.png" },
-    { name: "Electrolux", image: "/public/brand/electrolux.png" },
-    { name: "Flife", image: "/public/brand/flife.png" },
-    { name: "Gree", image: "/public/brand/gree.png" },
-    { name: "Hisense", image: "/public/brand/hisense.png" },
-    { name: "LG", image: "/public/brand/lg.png" },
-    { name: "Midea", image: "/public/brand/midea.png" },
-    { name: "Mitsubishi", image: "/public/brand/mitsubishi.png" },
-    { name: "Panasonic", image: "/public/brand/panasonic.png" },
-    { name: "Polytron", image: "/public/brand/polytron.png" },
-    { name: "Reiwa", image: "/public/brand/reiwa.png" },
-    { name: "Rinnai", image: "/public/brand/rinnai.png" },
-    { name: "Samsung", image: "/public/brand/samsung.png" },
-    { name: "Sharp", image: "/public/brand/sharp.png" },
-    { name: "tcl", image: "/public/brand/tcl.png" },
-    { name: "toshiba", image: "/public/brand/toshiba.png" },
+    { name: "Aqua", image: "/brand/aqua.png" },
+    { name: "Ariston", image: "/brand/ariston.png" },
+    { name: "Beko", image: "/brand/beko.png" },
+    { name: "Changhong", image: "/brand/changhong.png" },
+    { name: "Daikin", image: "/brand/daikin.png" },
+    { name: "Electrolux", image: "/brand/electrolux.png" },
+    { name: "Flife", image: "/brand/flife.png" },
+    { name: "Gree", image: "/brand/gree.png" },
+    { name: "Hisense", image: "/brand/hisense.png" },
+    { name: "LG", image: "/brand/lg.png" },
+    { name: "Midea", image: "/brand/midea.png" },
+    { name: "Mitsubishi", image: "/brand/mitsubishi.png" },
+    { name: "Panasonic", image: "/brand/panasonic.png" },
+    { name: "Polytron", image: "/brand/polytron.png" },
+    { name: "Reiwa", image: "/brand/reiwa.png" },
+    { name: "Rinnai", image: "/brand/rinnai.png" },
+    { name: "Samsung", image: "/brand/samsung.png" },
+    { name: "Sharp", image: "/brand/sharp.png" },
+    { name: "tcl", image: "/brand/tcl.png" },
+    { name: "toshiba", image: "/brand/toshiba.png" },
   ];
 
   const brands = [...originalBrands, ...originalBrands];
@@ -219,47 +219,47 @@ const WilayahLayanan = () => {
 const GallerySection = () => {
   const galleryImages = [
     {
-      src: "/public/gallery/gallery-1.jpg",
+      src: "/gallery/gallery-1.jpg",
       alt: "Cuci AC Split",
       title: "Cuci AC Split",
     },
     {
-      src: "/public/gallery/gallery-2.jpg",
+      src: "/gallery/gallery-2.jpg",
       alt: "Servis AC Outdoor",
       title: "Servis AC Outdoor",
     },
     {
-      src: "/public/gallery/gallery-3.jpg",
+      src: "/gallery/gallery-3.jpg",
       alt: "Instalasi AC Baru",
       title: "Instalasi AC Baru",
     },
     {
-      src: "/public/gallery/gallery-4.jpg",
+      src: "/gallery/gallery-4.jpg",
       alt: "Teknisi Professional",
       title: "Teknisi Professional",
     },
     {
-      src: "/public/gallery/gallery-5.jpg",
+      src: "/gallery/gallery-5.jpg",
       alt: "Perawatan AC Rutin",
       title: "Perawatan AC Rutin",
     },
     {
-      src: "/public/gallery/gallery-6.jpg",
+      src: "/gallery/gallery-6.jpg",
       alt: "Bongkar Pasang AC",
       title: "Bongkar Pasang AC",
     },
     {
-      src: "/public/gallery/gallery-7.jpg",
+      src: "/gallery/gallery-7.jpg",
       alt: "Isi Freon AC",
       title: "Isi Freon AC",
     },
     {
-      src: "/public/gallery/gallery-8.jpg",
+      src: "/gallery/gallery-8.jpg",
       alt: "AC Cassette Service",
       title: "AC Cassette Service",
     },
     {
-      src: "/public/gallery/gallery-9.jpg",
+      src: "/gallery/gallery-9.jpg",
       alt: "Hasil Kerja Rapi",
       title: "Hasil Kerja Rapi",
     },
@@ -315,32 +315,32 @@ const FeaturedServicesSlider = () => {
 
   const featuredServices = [
     {
-      image: "/public/services/cuci-ac.png",
+      image: "/services/cuci-ac.png",
       title: "Cuci AC",
       desc: "Pembersihan menyeluruh unit indoor dan outdoor AC.",
     },
     {
-      image: "/public/services/servis-ac.png",
+      image: "/services/servis-ac.png",
       title: "Servis AC",
       desc: "Diagnosa dan perbaikan kerusakan AC oleh teknisi berpengalaman.",
     },
     {
-      image: "/public/services/isi-freon.png",
+      image: "/services/isi-freon.png",
       title: "Isi Freon",
       desc: "Pengisian freon berkualitas untuk semua tipe AC (R22, R32, R410A).",
     },
     {
-      image: "/public/services/instalasi-ac.png",
+      image: "/services/instalasi-ac.png",
       title: "Instalasi AC",
       desc: "Pemasangan AC baru dengan instalasi yang rapi dan aman.",
     },
     {
-      image: "/public/services/bongkar-pasang.png",
+      image: "/services/bongkar-pasang.png",
       title: "Bongkar Pasang",
       desc: "Layanan bongkar pasang AC untuk pindahan atau renovasi.",
     },
     {
-      image: "/public/services/perawatan-berkala.png",
+      image: "/services/perawatan-berkala.png",
       title: "Perawatan Berkala",
       desc: "Program perawatan rutin untuk menjaga performa AC tetap optimal.",
     },
