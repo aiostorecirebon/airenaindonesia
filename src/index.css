@@ -208,7 +208,3 @@
     transform: translateX(-50%);
   }
 }
-
-.brand-scroll-seamless:hover {
-  animation-play-state: paused;
-}

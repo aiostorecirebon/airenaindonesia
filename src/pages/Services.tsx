@@ -1,18 +1,9 @@
-import {
-  Snowflake,
-  Wrench,
-  Settings,
-  Users,
-  RefreshCw,
-  Shield,
-  MessageCircle,
-  ArrowRight,
-} from "lucide-react";
+import { MessageCircle, ArrowRight } from "lucide-react";
 
 const Services = () => {
   const services = [
     {
-      icon: Snowflake,
+      image: "/services/cuci-ac.webp",
       title: "Cuci AC",
       description:
         "Pembersihan menyeluruh unit indoor dan outdoor AC dengan teknik profesional",
@@ -24,7 +15,7 @@ const Services = () => {
       ],
     },
     {
-      icon: RefreshCw,
+      image: "/services/instalasi-ac.webp",
       title: "Instalasi Baru",
       description:
         "Pemasangan AC baru dengan instalasi pipa dan kelistrikan yang rapi",
@@ -36,10 +27,10 @@ const Services = () => {
       ],
     },
     {
-      icon: Wrench,
+      image: "/services/servis-ac.webp",
       title: "Servis AC Rusak",
       description:
-        "Diagnosa dan perbaikan berbagai kerusakan AC dengan teknisi berpengalaman",
+        "Diagnosa dan perbaikan kerusakan AC oleh teknisi berpengalaman",
       features: [
         "Diagnosa kerusakan lengkap",
         "Perbaikan komponen rusak",
@@ -48,7 +39,7 @@ const Services = () => {
       ],
     },
     {
-      icon: Users,
+      image: "/services/bongkar-pasang.webp",
       title: "Bongkar Pasang AC",
       description:
         "Layanan bongkar pasang AC untuk pindahan atau renovasi dengan aman",
@@ -60,7 +51,7 @@ const Services = () => {
       ],
     },
     {
-      icon: Settings,
+      image: "/services/isi-freon.webp",
       title: "Isi Freon",
       description:
         "Pengisian freon berkualitas untuk semua tipe AC (R22, R32, R410A)",
@@ -72,7 +63,7 @@ const Services = () => {
       ],
     },
     {
-      icon: Shield,
+      image: "/services/perawatan-berkala.webp",
       title: "Perawatan Rutin",
       description:
         "Program perawatan berkala setiap 3-6 bulan untuk menjaga performa AC",
@@ -103,9 +94,9 @@ const Services = () => {
   };
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-brand-primary to-brand-primary-dark text-white py-16">
+      <section className="bg-gradient-to-r from-[#01b2b7] to-[#019ca1] text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
             Layanan AC Lengkap dari AIRENA
@@ -118,53 +109,63 @@ const Services = () => {
       </section>
 
       {/* Main Services */}
-      <section className="section-padding">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Layanan Utama Kami
             </h2>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-xl text-gray-600">
               Dipercaya ribuan pelanggan di Jawa Barat
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => {
-              const Icon = service.icon;
               return (
-                <div key={index} className="card-hover">
-                  <div className="text-center mb-6">
-                    <div className="w-20 h-20 bg-brand-primary-light rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Icon className="h-10 w-10 text-brand-primary" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-foreground mb-2">
-                      {service.title}
-                    </h3>
+                <div
+                  key={index}
+                  className="bg-white rounded-xl shadow-lg group transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col overflow-hidden"
+                >
+                  {/* Image Section - Fixed aspect ratio and full width */}
+                  <div className="relative w-full h-64 overflow-hidden">
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      draggable={false}
+                    />
                   </div>
 
-                  <p className="text-muted-foreground mb-6">
-                    {service.description}
-                  </p>
+                  {/* Content Section */}
+                  <div className="p-6 flex-1 flex flex-col">
+                    <div className="text-center mb-6">
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                        {service.title}
+                      </h3>
+                    </div>
 
-                  <ul className="space-y-2 mb-6">
-                    {service.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-start">
-                        <div className="w-2 h-2 bg-brand-primary rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                        <span className="text-sm text-muted-foreground">
-                          {feature}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+                    <p className="text-gray-600 mb-6">{service.description}</p>
 
-                  <button
-                    onClick={() => handleWhatsApp(service.title)}
-                    className="btn-brand w-full flex items-center justify-center gap-2"
-                  >
-                    <MessageCircle className="h-4 w-4" />
-                    Pesan Sekarang
-                  </button>
+                    <ul className="space-y-2 mb-6 flex-1">
+                      {service.features.map((feature, featureIndex) => (
+                        <li key={featureIndex} className="flex items-start">
+                          <div className="w-2 h-2 bg-[#01b2b7] rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                          <span className="text-sm text-gray-600">
+                            {feature}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <button
+                      onClick={() => handleWhatsApp(service.title)}
+                      className="w-full bg-[#01b2b7] hover:bg-[#019ca1] text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
+                    >
+                      <MessageCircle className="h-4 w-4" />
+                      Pesan Sekarang
+                    </button>
+                  </div>
                 </div>
               );
             })}
@@ -173,20 +174,20 @@ const Services = () => {
       </section>
 
       {/* Process Section */}
-      <section className="section-padding">
-        <div className="max-w-6xl mx-auto">
+      <section className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Proses Layanan Kami
             </h2>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-xl text-gray-600">
               Mudah, cepat, dan profesional
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
             {/* Desktop connecting line */}
-            <div className="hidden md:block absolute top-8 left-0 w-full h-1 bg-brand-primary/20 rounded-full"></div>
+            <div className="hidden md:block absolute top-8 left-0 w-full h-1 bg-[#01b2b7]/20 rounded-full"></div>
 
             {[
               {
@@ -212,15 +213,15 @@ const Services = () => {
             ].map((process, index) => (
               <div key={index} className="text-center relative">
                 {/* Step Circle */}
-                <div className="w-16 h-16 bg-brand-primary text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold relative z-20 shadow-lg border-4 border-white transition-all duration-300 hover:scale-110">
+                <div className="w-16 h-16 bg-[#01b2b7] text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold relative z-20 shadow-lg border-4 border-white transition-all duration-300 hover:scale-110">
                   {process.step}
                 </div>
 
                 {/* Centered Arrow for desktop - positioned between circles */}
                 {index < 3 && (
                   <div className="hidden md:block absolute top-6 -right-4 z-30">
-                    <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-brand-primary/20">
-                      <ArrowRight className="h-4 w-4 text-brand-primary animate-pulse" />
+                    <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-[#01b2b7]/20">
+                      <ArrowRight className="h-4 w-4 text-[#01b2b7] animate-pulse" />
                     </div>
                   </div>
                 )}
@@ -228,18 +229,18 @@ const Services = () => {
                 {/* Mobile Arrow (vertical) */}
                 {index < 3 && (
                   <div className="md:hidden flex justify-center mb-4">
-                    <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-brand-primary/20">
-                      <ArrowRight className="h-4 w-4 text-brand-primary rotate-90" />
+                    <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-[#01b2b7]/20">
+                      <ArrowRight className="h-4 w-4 text-[#01b2b7] rotate-90" />
                     </div>
                   </div>
                 )}
 
                 {/* Content */}
                 <div className="space-y-3">
-                  <h3 className="text-xl font-semibold text-foreground">
+                  <h3 className="text-xl font-semibold text-gray-900">
                     {process.title}
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-gray-600 leading-relaxed">
                     {process.desc}
                   </p>
                 </div>
@@ -250,7 +251,7 @@ const Services = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-brand-primary text-white py-16">
+      <section className="bg-[#01b2b7] text-white py-16">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Butuh Layanan AC Sekarang?
@@ -262,14 +263,14 @@ const Services = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => handleWhatsApp("Konsultasi Layanan")}
-              className="whatsapp-btn bg-white text-brand-primary hover:bg-gray-100"
+              className="bg-white text-[#01b2b7] hover:bg-gray-100 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
             >
               <MessageCircle className="h-6 w-6" />
               Booking Sekarang via WhatsApp
             </button>
             <a
               href="tel:+6287811538848"
-              className="btn-brand-outline border-white text-white hover:bg-white hover:text-brand-primary"
+              className="border-2 border-white text-white hover:bg-white hover:text-[#01b2b7] font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
             >
               📞 Telepon Langsung
             </a>

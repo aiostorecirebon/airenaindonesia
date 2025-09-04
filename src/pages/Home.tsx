@@ -68,26 +68,26 @@ const ChevronRight = ({ className }) => (
 // Brand Moving Section Component
 const BrandSection = () => {
   const originalBrands = [
-    { name: "Aqua", image: "/brand/aqua.png" },
-    { name: "Ariston", image: "/brand/ariston.png" },
-    { name: "Beko", image: "/brand/beko.png" },
-    { name: "Changhong", image: "/brand/changhong.png" },
-    { name: "Daikin", image: "/brand/daikin.png" },
-    { name: "Electrolux", image: "/brand/electrolux.png" },
-    { name: "Flife", image: "/brand/flife.png" },
-    { name: "Gree", image: "/brand/gree.png" },
-    { name: "Hisense", image: "/brand/hisense.png" },
-    { name: "LG", image: "/brand/lg.png" },
-    { name: "Midea", image: "/brand/midea.png" },
-    { name: "Mitsubishi", image: "/brand/mitsubishi.png" },
-    { name: "Panasonic", image: "/brand/panasonic.png" },
-    { name: "Polytron", image: "/brand/polytron.png" },
-    { name: "Reiwa", image: "/brand/reiwa.png" },
-    { name: "Rinnai", image: "/brand/rinnai.png" },
-    { name: "Samsung", image: "/brand/samsung.png" },
-    { name: "Sharp", image: "/brand/sharp.png" },
-    { name: "tcl", image: "/brand/tcl.png" },
-    { name: "toshiba", image: "/brand/toshiba.png" },
+    { name: "Aqua", image: "/brand/aqua.webp" },
+    { name: "Ariston", image: "/brand/ariston.webp" },
+    { name: "Beko", image: "/brand/beko.webp" },
+    { name: "Changhong", image: "/brand/changhong.webp" },
+    { name: "Daikin", image: "/brand/daikin.webp" },
+    { name: "Electrolux", image: "/brand/electrolux.webp" },
+    { name: "Flife", image: "/brand/flife.webp" },
+    { name: "Gree", image: "/brand/gree.webp" },
+    { name: "Hisense", image: "/brand/hisense.webp" },
+    { name: "LG", image: "/brand/lg.webp" },
+    { name: "Midea", image: "/brand/midea.webp" },
+    { name: "Mitsubishi", image: "/brand/mitsubishi.webp" },
+    { name: "Panasonic", image: "/brand/panasonic.webp" },
+    { name: "Polytron", image: "/brand/polytron.webp" },
+    { name: "Reiwa", image: "/brand/reiwa.webp" },
+    { name: "Rinnai", image: "/brand/rinnai.webp" },
+    { name: "Samsung", image: "/brand/samsung.webp" },
+    { name: "Sharp", image: "/brand/sharp.webp" },
+    { name: "tcl", image: "/brand/tcl.webp" },
+    { name: "toshiba", image: "/brand/toshiba.webp" },
   ];
 
   const brands = [...originalBrands, ...originalBrands];
@@ -255,8 +255,8 @@ const GallerySection = () => {
     },
     {
       src: "/gallery/gallery-8.jpg",
-      alt: "AC Cassette Service",
-      title: "AC Cassette Service",
+      alt: "AC Komersil",
+      title: "AC Komersil",
     },
     {
       src: "/gallery/gallery-9.jpg",
@@ -270,7 +270,7 @@ const GallerySection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Cek Galeri Kami
+            Galeri Kami
           </h2>
         </div>
 
@@ -315,32 +315,32 @@ const FeaturedServicesSlider = () => {
 
   const featuredServices = [
     {
-      image: "/services/cuci-ac.png",
+      image: "/services/cuci-ac.webp",
       title: "Cuci AC",
       desc: "Pembersihan menyeluruh unit indoor dan outdoor AC.",
     },
     {
-      image: "/services/servis-ac.png",
+      image: "/services/servis-ac.webp",
       title: "Servis AC",
       desc: "Diagnosa dan perbaikan kerusakan AC oleh teknisi berpengalaman.",
     },
     {
-      image: "/services/isi-freon.png",
+      image: "/services/isi-freon.webp",
       title: "Isi Freon",
       desc: "Pengisian freon berkualitas untuk semua tipe AC (R22, R32, R410A).",
     },
     {
-      image: "/services/instalasi-ac.png",
+      image: "/services/instalasi-ac.webp",
       title: "Instalasi AC",
       desc: "Pemasangan AC baru dengan instalasi yang rapi dan aman.",
     },
     {
-      image: "/services/bongkar-pasang.png",
+      image: "/services/bongkar-pasang.webp",
       title: "Bongkar Pasang",
       desc: "Layanan bongkar pasang AC untuk pindahan atau renovasi.",
     },
     {
-      image: "/services/perawatan-berkala.png",
+      image: "/services/perawatan-berkala.webp",
       title: "Perawatan Berkala",
       desc: "Program perawatan rutin untuk menjaga performa AC tetap optimal.",
     },
@@ -608,31 +608,41 @@ const Home = () => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[#01b2b7] to-[#008a8e] text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Jasa Servis, Cuci & Instalasi AC Profesional
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 opacity-90">
-            Bandung, Cirebon, Tasikmalaya, Indramayu
-          </p>
-          <button
-            onClick={handleWhatsApp}
-            className="bg-white text-[#01b2b7] hover:bg-gray-100 text-xl px-8 py-4 rounded-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center gap-3 mx-auto"
-          >
-            <MessageCircle className="h-6 w-6" />
-            Pesan Sekarang via WhatsApp
-          </button>
+      <section
+        className="text-white py-40 bg-cover bg-center bg-no-repeat relative"
+        style={{
+          backgroundImage: "url(/banner.webp)",
+        }}
+      >
+        {/* Optional: Overlay untuk memastikan teks tetap terbaca */}
+        <div className="absolute inset-0 bg-black bg-opacity-50" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex items-center justify-center md:justify-end min-h-[400px]">
+          <div className="text-center md:text-right md:w-1/2">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              Jasa Servis
+              <br></br> Cuci & Instalasi AC Profesional
+            </h1>
+            <h2 className="text-2xl md:text-2xl mb-4">
+              Bandung, Cirebon, Tasikmalaya & Indramayu
+            </h2>
+            <button
+              onClick={handleWhatsApp}
+              className="bg-[#01b2b7] text-white hover:bg-[#019ca1] text-xl px-8 py-4 rounded-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center gap-3 mx-auto md:mx-0 md:ml-auto"
+            >
+              <MessageCircle className="h-6 w-6" />
+              Pesan Sekarang via WhatsApp
+            </button>
+          </div>
         </div>
       </section>
-
       {/* About Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-12 items-stretch min-h-[600px] lg:min-h-[550px]">
             <div className="w-full lg:w-1/2 flex">
               <img
-                src="/gambar.png"
+                src="/gambar.webp"
                 alt="Teknisi AIRENA Professional"
                 className="w-full h-full"
                 onError={(e) => {
@@ -647,7 +657,8 @@ const Home = () => {
                   Percayakan Perawatan AC Anda kepada AIRENA
                 </h2>
                 <p className="text-center text-lg text-gray-600">
-                  Dipercaya oleh ribuan pelanggan di kota-kota besar Jawa Barat.
+                  Dipercaya oleh ribuan pelanggan di kota Bandung, Cirebon,
+                  Tasikmalaya & Indramayu.
                 </p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -655,17 +666,17 @@ const Home = () => {
                   {
                     title: "Profesional",
                     desc: "Teknisi bersertifikat & berpengalaman.",
-                    img: "/teknisi.png",
+                    img: "/teknisi.webp",
                   },
                   {
                     title: "Berkualitas",
                     desc: "Garansi servis & kepuasan pelanggan.",
-                    img: "/garansi.png",
+                    img: "/garansi.webp",
                   },
                   {
                     title: "Responsif",
                     desc: "Pelayanan ramah & pemesanan mudah.",
-                    img: "/responsif.png",
+                    img: "/responsif.webp",
                   },
                 ].map((item, index) => (
                   <div
@@ -712,7 +723,7 @@ const Home = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Pertanyaan yang Sering Diajukan
+              Pertanyaan yang Sering Ditanyakan
             </h2>
           </div>
           <div className="space-y-4">

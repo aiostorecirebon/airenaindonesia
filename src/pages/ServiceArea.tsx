@@ -134,28 +134,6 @@ const ServiceArea = () => {
         </div>
       </section>
 
-      {/* Service Features */}
-      <section className="section-padding">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {serviceFeatures.map((feature, index) => {
-              const Icon = feature.icon;
-              return (
-                <div key={index} className="card-hover text-center">
-                  <div className="w-16 h-16 bg-brand-primary-light rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Icon className="h-8 w-8 text-brand-primary" />
-                  </div>
-                  <h3 className="text-xl font-semibold mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-muted-foreground">{feature.description}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* Service Areas */}
       <section className="section-background section-padding">
         <div className="max-w-7xl mx-auto">
@@ -244,6 +222,27 @@ const ServiceArea = () => {
 
       {/* Coverage Map Info */}
 
+      {/* Service Features */}
+      <section className="section-padding">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            {serviceFeatures.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <div key={index} className="card-hover text-center">
+                  <div className="w-16 h-16 bg-brand-primary-light rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Icon className="h-8 w-8 text-brand-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2">
+                    {feature.title}
+                  </h3>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
       {/* CTA Section */}
       <section className="bg-brand-primary text-white py-16">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
