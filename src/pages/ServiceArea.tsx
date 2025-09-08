@@ -190,7 +190,9 @@ const ServiceArea = () => {
                     Pesan Teknisi di {area.city}
                   </button>
 
-                  {(area.city === "Cirebon" || area.city === "Indramayu") && (
+                  {(area.city === "Cirebon" ||
+                    area.city === "Indramayu" ||
+                    area.city === "Tasikmalaya") && (
                     <div className="mt-6">
                       <MapCard
                         branchName={`Airena ${area.city}`}
@@ -200,15 +202,22 @@ const ServiceArea = () => {
                                 lat: -6.730449803287912, // Added negative sign
                                 lng: 108.57649665948746,
                               }
-                            : {
+                            : area.city === "Indramayu"
+                            ? {
                                 lat: -6.437191269195009, // Added negative sign
                                 lng: 108.30315271200429,
+                              }
+                            : {
+                                lat: -7.348422381627437,
+                                lng: 108.21985354507241,
                               }
                         }
                         shareLink={
                           area.city === "Cirebon"
                             ? "https://maps.app.goo.gl/CBZcSeJp8fRPaWT96"
-                            : "https://maps.app.goo.gl/BLy1UKmh6K4hJjem6"
+                            : area.city === "Indramayu"
+                            ? "https://maps.app.goo.gl/BLy1UKmh6K4hJjem6"
+                            : "https://maps.app.goo.gl/xPrrKJA1snbghSUs5"
                         }
                       />
                     </div>
