@@ -818,9 +818,9 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Mobile Layout: Vertical Stack */}
           <div className="block md:hidden">
-            <div className="text-center space-y-8">
+            <div className="text-left space-y-8">
               {/* Title */}
-              <h1 className="text-4xl sm:text-5xl font-bold leading-tight text-white">
+              <h1 className="text-4xl sm:text-5xl font-bold leading-tight text-white -mt-4">
                 <span className="block">Jasa Servis,</span>
                 <span className="block">Cuci & Instalasi AC</span>
                 <span className="block">Profesional</span>
@@ -848,7 +848,7 @@ const Home = () => {
                         }}
                       />
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t " />
                     <div className="absolute bottom-0 left-0 right-0 p-3">
                       <h3 className="text-white font-semibold text-lg text-center"></h3>
                     </div>
@@ -860,7 +860,7 @@ const Home = () => {
               <div>
                 <button
                   onClick={handleWhatsApp}
-                  className="bg-[#01b2b7] text-white hover:bg-[#019ca1] text-lg font-semibold px-8 py-4 rounded-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center gap-3 mx-auto"
+                  className="bg-[#01b2b7] text-white hover:bg-[#019ca1] text-lg font-semibold px-8 py-4 rounded-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center gap-3"
                 >
                   <WhatsApp className="h-6 w-6" />
                   Hubungi Kami
@@ -967,7 +967,7 @@ const Home = () => {
         </div>
       </section>
       {/* About Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white -mt-28 -mb-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-12 items-stretch min-h-[600px] lg:min-h-[550px]">
             <div className="w-full lg:w-1/2 flex">
