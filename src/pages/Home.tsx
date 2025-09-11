@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate hook
 
 // Simple icon components to replace lucide-react icons
 const WhatsApp = ({ className }) => (
@@ -67,6 +68,7 @@ const BrandSection = () => {
     { name: "Flife", image: "/brand/flife.webp" },
     { name: "Gree", image: "/brand/gree.webp" },
     { name: "Hisense", image: "/brand/hisense.webp" },
+    { name: "Hitachi", image: "/brand/hitachi.webp" },
     { name: "LG", image: "/brand/lg.webp" },
     { name: "Midea", image: "/brand/midea.webp" },
     { name: "Mitsubishi", image: "/brand/mitsubishi.webp" },
@@ -80,8 +82,6 @@ const BrandSection = () => {
     { name: "toshiba", image: "/brand/toshiba.webp" },
   ];
 
-  const brands = [...originalBrands, ...originalBrands];
-
   return (
     <section className="py-16 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -94,26 +94,43 @@ const BrandSection = () => {
           </p>
         </div>
         <div className="relative overflow-hidden">
-          <div
-            className="flex space-x-20 brand-scroll-seamless"
-            style={{ width: `${brands.length * 116}px` }}
-          >
-            {brands.map((brand, index) => (
-              <div
-                key={`${brand.name}-${index}`}
-                className="flex-shrink-0 mx-2 flex items-center justify-center"
-                style={{ minWidth: "100px", height: "100px" }}
-              >
-                <img
-                  src={brand.image}
-                  alt={brand.name}
-                  className="h-7 w-auto "
-                  onError={(e) => {
-                    e.currentTarget.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='64' viewBox='0 0 120 64'%3E%3Crect width='120' height='64' fill='%23f3f4f6' rx='8'/%3E%3Ctext x='60' y='32' text-anchor='middle' dy='.3em' fill='%236b7280' font-family='Arial, sans-serif' font-size='12'%3E${brand.name}%3C/text%3E%3C/svg%3E`;
-                  }}
-                />
-              </div>
-            ))}
+          <div className="brand-track whitespace-nowrap">
+            <div className="brand-slide inline-flex items-center">
+              {originalBrands.map((brand, index) => (
+                <div
+                  key={`original-${index}`}
+                  className="flex-shrink-0 mx-8 flex items-center justify-center"
+                  style={{ width: "100px" }}
+                >
+                  <img
+                    src={brand.image}
+                    alt={brand.name}
+                    className="h-8 w-auto"
+                    onError={(e) => {
+                      e.currentTarget.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='64' viewBox='0 0 120 64'%3E%3Crect width='120' height='64' fill='%23f3f4f6' rx='8'/%3E%3Ctext x='60' y='32' text-anchor='middle' dy='.3em' fill='%236b7280' font-family='Arial, sans-serif' font-size='12'%3E${brand.name}%3C/text%3E%3C/svg%3E`;
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="brand-slide inline-flex items-center">
+              {originalBrands.map((brand, index) => (
+                <div
+                  key={`clone-${index}`}
+                  className="flex-shrink-0 mx-8 flex items-center justify-center"
+                  style={{ width: "100px" }}
+                >
+                  <img
+                    src={brand.image}
+                    alt={brand.name}
+                    className="h-8 w-auto"
+                    onError={(e) => {
+                      e.currentTarget.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='64' viewBox='0 0 120 64'%3E%3Crect width='120' height='64' fill='%23f3f4f6' rx='8'/%3E%3Ctext x='60' y='32' text-anchor='middle' dy='.3em' fill='%236b7280' font-family='Arial, sans-serif' font-size='12'%3E${brand.name}%3C/text%3E%3C/svg%3E`;
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -212,6 +229,7 @@ const WilayahLayanan = () => {
     </section>
   );
 };
+
 // Gallery Section
 const GallerySection = () => {
   const [currentGallerySlide, setCurrentGallerySlide] = useState(0);
@@ -502,6 +520,7 @@ const GallerySection = () => {
     </section>
   );
 };
+
 // Improved Featured Services Slider Component
 const FeaturedServicesSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -772,6 +791,8 @@ const FeaturedServicesSlider = () => {
 
 // Main Home Component
 const Home = () => {
+  // Initialize useNavigate hook
+  const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState(null);
 
   const handleWhatsApp = useCallback(() => {
@@ -780,6 +801,11 @@ const Home = () => {
     );
     window.open(`https://wa.me/6287811538848?text=${message}`, "_blank");
   }, []);
+
+  // Function to handle navigation to wilayah page using React Router
+  const handleNavigateToWilayah = useCallback(() => {
+    navigate("/wilayah");
+  }, [navigate]);
 
   const faqs = [
     {
@@ -829,28 +855,31 @@ const Home = () => {
               {/* City Images Grid */}
               <div className="grid grid-cols-1 gap-4 max-w-sm mx-auto">
                 {[
-                  { image: "/cirebon.webp" },
-                  { image: "/indramayu.webp" },
-                  { image: "/tasikmalaya.webp" },
-                  { image: "/bandung.webp" },
+                  { image: "/cirebon.webp", alt: "Cirebon" },
+                  { image: "/indramayu.webp", alt: "Indramayu" },
+                  { image: "/tasikmalaya.webp", alt: "Tasikmalaya" },
+                  { image: "/bandung.webp", alt: "Bandung" },
                 ].map((city, index) => (
                   <div
                     key={index}
-                    onClick={() => (window.location.href = "/wilayah")}
+                    onClick={handleNavigateToWilayah}
                     className="relative rounded-lg overflow-hidden cursor-pointer transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
                   >
                     <div className="bg-transparent-10">
                       <img
                         src={city.image}
+                        alt={city.alt}
                         className="w-full h-full object-cover"
                         onError={(e) => {
-                          e.currentTarget.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23f3f4f6'/%3E%3Ctext x='100' y='100' text-anchor='middle' dy='.3em' fill='%236b7280' font-family='Arial, sans-serif' font-size='16'%3E%3C/text%3E%3C/svg%3E`;
+                          e.currentTarget.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23f3f4f6'/%3E%3Ctext x='100' y='100' text-anchor='middle' dy='.3em' fill='%236b7280' font-family='Arial, sans-serif' font-size='16'%3E${city.alt}%3C/text%3E%3C/svg%3E`;
                         }}
                       />
                     </div>
                     <div className="absolute inset-0 bg-gradient-to-t " />
                     <div className="absolute bottom-0 left-0 right-0 p-3">
-                      <h3 className="text-white font-semibold text-lg text-center"></h3>
+                      <h3 className="text-white font-semibold text-lg text-center">
+                        {city.alt}
+                      </h3>
                     </div>
                   </div>
                 ))}
@@ -896,7 +925,7 @@ const Home = () => {
               <div className="relative max-w-lg ml-auto">
                 {/* Cirebon - Kanan Atas */}
                 <div
-                  onClick={() => (window.location.href = "/wilayah")}
+                  onClick={handleNavigateToWilayah}
                   className="flex items-center mb-4 cursor-pointer transform hover:scale-105 transition-all duration-300 hover:translate-x-2 ml-24"
                 >
                   <div className="w-auto h-20 rounded-lg overflow-hidden shadow-lg mr-4 flex-shrink-0">
@@ -913,7 +942,7 @@ const Home = () => {
 
                 {/* Indramayu - Kanan Tengah */}
                 <div
-                  onClick={() => (window.location.href = "/wilayah")}
+                  onClick={handleNavigateToWilayah}
                   className="flex items-center mb-4 cursor-pointer transform hover:scale-105 transition-all duration-300 hover:translate-x-4 ml-16"
                 >
                   <div className="w-auto h-20 rounded-lg overflow-hidden shadow-lg mr-4 flex-shrink-0">
@@ -930,7 +959,7 @@ const Home = () => {
 
                 {/* Tasikmalaya - Kiri Tengah */}
                 <div
-                  onClick={() => (window.location.href = "/wilayah")}
+                  onClick={handleNavigateToWilayah}
                   className="flex items-center mb-4 cursor-pointer transform hover:scale-105 transition-all duration-300 hover:translate-x-6 ml-8"
                 >
                   <div className="w-auto h-20 rounded-lg overflow-hidden shadow-lg mr-4 flex-shrink-0">
@@ -947,7 +976,7 @@ const Home = () => {
 
                 {/* Bandung - Tengah Bawah (Posisi Utama) */}
                 <div
-                  onClick={() => (window.location.href = "/wilayah")}
+                  onClick={handleNavigateToWilayah}
                   className="flex items-center cursor-pointer transform hover:scale-105 transition-all duration-300 hover:translate-x-8"
                 >
                   <div className="w-auto h-20 rounded-lg overflow-hidden shadow-lg mr-4 flex-shrink-0">
@@ -966,20 +995,23 @@ const Home = () => {
           </div>
         </div>
       </section>
+
       {/* About Section */}
-      <section className="py-16 bg-white -mt-28 -mb-4">
+      <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-12 items-stretch min-h-[600px] lg:min-h-[550px]">
             <div className="w-full lg:w-1/2 flex">
-              <img
-                src="/gambar.webp"
-                alt="Teknisi AIRENA Professional"
-                className="w-full h-full"
-                onError={(e) => {
-                  e.currentTarget.src =
-                    "https://via.placeholder.com/600x600.png?text=Image+Not+Found";
-                }}
-              />
+              <div className="w-full h-full rounded-2xl overflow-hidden">
+                <img
+                  src="/gambar.webp"
+                  alt="Teknisi AIRENA Professional"
+                  className="w-full h-full object-contain"
+                  onError={(e) => {
+                    e.currentTarget.src =
+                      "https://via.placeholder.com/600x600.png?text=Image+Not+Found";
+                  }}
+                />
+              </div>
             </div>
             <div className="w-full lg:w-1/2 flex flex-col justify-center">
               <div className="border-2 border-[#01b2b7] rounded-2xl p-8 shadow-sm mb-6">
@@ -1036,6 +1068,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+
       {/* Featured Services Slider */}
       <FeaturedServicesSlider />
 

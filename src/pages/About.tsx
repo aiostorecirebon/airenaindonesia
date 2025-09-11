@@ -63,14 +63,14 @@ const About = () => {
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
                 Siapa Kami?
               </h2>
-              <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+              <p className="text-lg text-muted-foreground mb-6 text-justify leading-relaxed">
                 AIRENA INDONESIA adalah perusahaan penyedia jasa air conditioner
                 (AC) yang berdiri dengan komitmen untuk memberikan layanan
                 berkualitas tinggi di wilayah Jawa Barat. Kami melayani berbagai
                 kebutuhan AC mulai dari cuci, servis, instalasi, hingga
                 perawatan berkala untuk rumah tinggal maupun komersial.
               </p>
-              <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+              <p className="text-lg text-muted-foreground mb-6 text-justify leading-relaxed">
                 Dengan tim teknisi berpengalaman dan bersertifikat, kami
                 memastikan setiap pekerjaan dilakukan dengan standar profesional
                 tertinggi. Kepuasan pelanggan adalah prioritas utama kami.
@@ -78,7 +78,7 @@ const About = () => {
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
                 Melayani Bandung, Cirebon, Tasikmalaya, Indramayu
               </p>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-4 ">
                 <div className="flex items-center text-brand-primary">
                   <CheckCircle className="h-5 w-5 mr-2" />
                   <span className="font-medium">Teknisi Bersertifikat</span>

@@ -66,9 +66,6 @@ const MapCard: React.FC<MapCardProps> = ({
         >
           Buka di Google Maps
         </a>
-        <small className="text-muted-foreground">
-          Koordinat: {coordinates.lat}, {coordinates.lng}
-        </small>
       </div>
     </section>
   );

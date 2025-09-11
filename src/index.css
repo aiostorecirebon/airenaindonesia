@@ -196,15 +196,26 @@
     @apply btn-brand inline-flex items-center gap-2 text-lg;
   }
 }
-.brand-scroll-seamless {
-  animation: scroll-seamless 40s linear infinite;
+.brand-track {
+  display: inline-flex;
+  animation: scroll 25s linear infinite;
+  will-change: transform;
 }
 
-@keyframes scroll-seamless {
-  0% {
+.brand-slide {
+  display: inline-flex;
+}
+
+@keyframes scroll {
+  from {
     transform: translateX(0);
   }
-  100% {
+  to {
     transform: translateX(-50%);
   }
+}
+
+/* Pause on hover */
+.brand-track:hover {
+  animation-play-state: paused;
 }
