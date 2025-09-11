@@ -97,15 +97,10 @@ const BrandSection = () => {
           <div className="brand-track whitespace-nowrap">
             <div className="brand-slide inline-flex items-center">
               {originalBrands.map((brand, index) => (
-                <div
-                  key={`original-${index}`}
-                  className="flex-shrink-0 mx-8 flex items-center justify-center"
-                  style={{ width: "100px" }}
-                >
+                <div key={`original-${index}`} className="brand-item">
                   <img
                     src={brand.image}
                     alt={brand.name}
-                    className="h-8 w-auto"
                     onError={(e) => {
                       e.currentTarget.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='64' viewBox='0 0 120 64'%3E%3Crect width='120' height='64' fill='%23f3f4f6' rx='8'/%3E%3Ctext x='60' y='32' text-anchor='middle' dy='.3em' fill='%236b7280' font-family='Arial, sans-serif' font-size='12'%3E${brand.name}%3C/text%3E%3C/svg%3E`;
                     }}
@@ -115,15 +110,10 @@ const BrandSection = () => {
             </div>
             <div className="brand-slide inline-flex items-center">
               {originalBrands.map((brand, index) => (
-                <div
-                  key={`clone-${index}`}
-                  className="flex-shrink-0 mx-8 flex items-center justify-center"
-                  style={{ width: "100px" }}
-                >
+                <div key={`clone-${index}`} className="brand-item">
                   <img
                     src={brand.image}
                     alt={brand.name}
-                    className="h-8 w-auto"
                     onError={(e) => {
                       e.currentTarget.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='64' viewBox='0 0 120 64'%3E%3Crect width='120' height='64' fill='%23f3f4f6' rx='8'/%3E%3Ctext x='60' y='32' text-anchor='middle' dy='.3em' fill='%236b7280' font-family='Arial, sans-serif' font-size='12'%3E${brand.name}%3C/text%3E%3C/svg%3E`;
                     }}

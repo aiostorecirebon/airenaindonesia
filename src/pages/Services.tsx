@@ -232,7 +232,7 @@ const Services = () => {
                 {/* Desktop Arrow - positioned to the right of current step */}
                 {index < 3 && (
                   <div
-                    className="hidden md:block absolute top-8 left-full z-30"
+                    className="hidden md:block absolute top-4 left-full z-20"
                     style={{ marginLeft: "1rem" }}
                   >
                     <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-[#01b2b7]/20">
