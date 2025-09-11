@@ -236,8 +236,3 @@
     transform: translateX(-50%);
   }
 }
-
-/* Pause on hover */
-.brand-track:hover {
-  animation-play-state: paused;
-}

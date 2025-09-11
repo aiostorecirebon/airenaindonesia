@@ -75,7 +75,6 @@ const BrandSection = () => {
     { name: "Panasonic", image: "/brand/panasonic.webp" },
     { name: "Polytron", image: "/brand/polytron.webp" },
     { name: "Reiwa", image: "/brand/reiwa.webp" },
-    { name: "Rinnai", image: "/brand/rinnai.webp" },
     { name: "Samsung", image: "/brand/samsung.webp" },
     { name: "Sharp", image: "/brand/sharp.webp" },
     { name: "tcl", image: "/brand/tcl.webp" },
