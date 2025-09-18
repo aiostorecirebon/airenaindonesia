@@ -229,11 +229,11 @@ const Services = () => {
                   {process.step}
                 </div>
 
-                {/* Desktop Arrow - positioned to the right of current step */}
+                {/* Desktop Arrow - positioned in the center between steps */}
                 {index < 3 && (
                   <div
                     className="hidden md:block absolute top-4 left-full z-20"
-                    style={{ marginLeft: "1rem" }}
+                    style={{ transform: "translateX(calc(50% - 1rem))" }}
                   >
                     <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-[#01b2b7]/20">
                       <ArrowRight className="h-4 w-4 text-[#01b2b7] animate-pulse" />
