@@ -219,8 +219,8 @@ const ServiceArea = () => {
                                 lng: 108.30315271200429,
                               }
                             : {
-                                lat: -7.348422381627437,
-                                lng: 108.21985354507241,
+                                lat: -7.348426105134876,
+                                lng: 108.21985459982903,
                               }
                         }
                         shareLink={
@@ -228,7 +228,7 @@ const ServiceArea = () => {
                             ? "https://maps.app.goo.gl/CBZcSeJp8fRPaWT96"
                             : area.city === "Indramayu"
                             ? "https://maps.app.goo.gl/BLy1UKmh6K4hJjem6"
-                            : "https://maps.app.goo.gl/xPrrKJA1snbghSUs5"
+                            : "https://maps.app.goo.gl/CHkS17qSPckMz5DM9"
                         }
                       />
                     </div>
