@@ -149,10 +149,10 @@ const WilayahLayanan = () => {
     {
       name: "Airena Tasikmalaya",
       city: "Tasikmalaya",
-      lat: -7.348429384833733,
-      lng: 108.21985057718892,
+      lat: -7.344812727875052,
+      lng: 108.21940679389087,
       zoom: 17,
-      mapUrl: "https://maps.app.goo.gl/GDeHpFnLyFvoXaUg8",
+      mapUrl: "https://maps.app.goo.gl/9RARxd6R7WKg3YfJ6",
     },
   ];
 

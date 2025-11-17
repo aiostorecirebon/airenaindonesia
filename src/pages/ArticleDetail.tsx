@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { BLOCKS, INLINES, MARKS } from "@contentful/rich-text-types";
 
 interface ArticleDetailData {
   title: string;
@@ -23,6 +24,7 @@ interface RelatedArticle {
 const ArticleDetail = () => {
   const { slug } = useParams();
   const [article, setArticle] = useState<ArticleDetailData | null>(null);
+  const [assetsMap, setAssetsMap] = useState<Record<string, any> | null>(null);
   const [relatedArticles, setRelatedArticles] = useState<RelatedArticle[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -32,7 +34,7 @@ const ArticleDetail = () => {
       const spaceId = import.meta.env.VITE_CONTENTFUL_SPACE_ID;
       const accessToken = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN;
 
-      const url = `https://cdn.contentful.com/spaces/${spaceId}/environments/master/entries?access_token=${accessToken}&content_type=article&fields.slug=${slug}`;
+      const url = `https://cdn.contentful.com/spaces/${spaceId}/environments/master/entries?access_token=${accessToken}&content_type=article&fields.slug=${slug}&include=10`;
 
       try {
         const response = await fetch(url);
@@ -42,12 +44,42 @@ const ArticleDetail = () => {
         if (data.items.length === 0) throw new Error("Article not found.");
 
         const item = data.items[0];
-        const imageUrl = data.includes?.Asset?.find(
-          (asset: any) => asset.sys.id === item.fields.images?.sys.id
-        )?.fields.file.url;
+
+        // Build comprehensive assets map untuk semua embedded assets
+        const assets = data.includes?.Asset || [];
+        const map: Record<string, any> = {};
+        assets.forEach((a: any) => {
+          if (a?.sys?.id) {
+            map[a.sys.id] = a.fields;
+          }
+        });
+        setAssetsMap(map);
+
+        // Helper function untuk resolve asset URL
+        const resolveAssetUrl = (assetRef: any): string | null => {
+          if (!assetRef) return null;
+
+          let id: string | null = null;
+
+          // Case 1: assetRef is array
+          if (Array.isArray(assetRef) && assetRef.length > 0) {
+            id = assetRef[0]?.sys?.id || null;
+          }
+          // Case 2: assetRef is single link
+          else if (assetRef?.sys?.id) {
+            id = assetRef.sys.id;
+          }
+
+          if (!id) return null;
+
+          const asset = map[id];
+          if (!asset?.file?.url) return null;
+
+          return `https:${asset.file.url}`;
+        };
 
         // Format tanggal dari Contentful
-        const formatDate = (dateString: string) => {
+        const formatDate = (dateString: string): string => {
           const date = new Date(dateString);
           return date.toLocaleDateString("id-ID", {
             day: "numeric",
@@ -56,12 +88,14 @@ const ArticleDetail = () => {
           });
         };
 
+        // Ambil featured image
+        const imageUrl = resolveAssetUrl(item.fields.images);
+
+        // Set article dengan data lengkap dari Contentful
         setArticle({
-          title: item.fields.title,
-          featuredImageUrl: imageUrl
-            ? `https:${imageUrl}`
-            : "https://via.placeholder.com/800x400?text=Featured+Image",
-          articleBody: item.fields.articlebody,
+          title: item.fields.title || "",
+          featuredImageUrl: imageUrl || "",
+          articleBody: item.fields.articlebody || null,
           category: item.fields.category || "Edukasi",
           publishedDate: item.fields.publishedDate
             ? formatDate(item.fields.publishedDate)
@@ -69,7 +103,7 @@ const ArticleDetail = () => {
           author: item.fields.author || "Tim AIRENA",
         });
 
-        // Fetch related articles (exclude current article)
+        // Fetch related articles
         await fetchRelatedArticles(item.fields.category, item.sys.id);
       } catch (err: any) {
         setError(err.message);
@@ -86,40 +120,59 @@ const ArticleDetail = () => {
       const accessToken = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN;
 
       try {
-        const relatedUrl = `https://cdn.contentful.com/spaces/${spaceId}/environments/master/entries?access_token=${accessToken}&content_type=article&limit=4&fields.category=${category}`;
+        const relatedUrl = `https://cdn.contentful.com/spaces/${spaceId}/environments/master/entries?access_token=${accessToken}&content_type=article&limit=4&fields.category=${category}&include=2`;
 
         const relatedResponse = await fetch(relatedUrl);
         if (relatedResponse.ok) {
           const relatedData = await relatedResponse.json();
 
-          // Filter out current article and map to RelatedArticle interface
+          const resolveAssetUrl = (assetRef: any): string | null => {
+            if (!assetRef) return null;
+
+            const assets = relatedData.includes?.Asset || [];
+            const map: Record<string, any> = {};
+            assets.forEach((a: any) => {
+              if (a?.sys?.id) map[a.sys.id] = a.fields;
+            });
+
+            let id: string | null = null;
+            if (Array.isArray(assetRef) && assetRef.length > 0) {
+              id = assetRef[0]?.sys?.id || null;
+            } else if (assetRef?.sys?.id) {
+              id = assetRef.sys.id;
+            }
+
+            if (!id) return null;
+            const asset = map[id];
+            if (!asset?.file?.url) return null;
+            return `https:${asset.file.url}`;
+          };
+
+          const formatDate = (dateString: string): string => {
+            const date = new Date(dateString);
+            return date.toLocaleDateString("id-ID", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            });
+          };
+
           const related = relatedData.items
             .filter((item: any) => item.sys.id !== currentArticleId)
-            .slice(0, 2) // Limit to 2 related articles
+            .slice(0, 2)
             .map((item: any) => {
-              const imageUrl = relatedData.includes?.Asset?.find(
-                (asset: any) => asset.sys.id === item.fields.images?.sys.id
-              )?.fields.file.url;
-
-              const formatDate = (dateString: string) => {
-                const date = new Date(dateString);
-                return date.toLocaleDateString("id-ID", {
-                  day: "numeric",
-                  month: "long",
-                  year: "numeric",
-                });
-              };
+              const imageUrl = resolveAssetUrl(item.fields.images);
 
               return {
                 id: item.sys.id,
-                title: item.fields.title,
-                slug: item.fields.slug,
+                title: item.fields.title || "",
+                slug: item.fields.slug || "",
                 category: item.fields.category || "Edukasi",
                 publishedDate: item.fields.publishedDate
                   ? formatDate(item.fields.publishedDate)
                   : formatDate(item.sys.createdAt),
                 featuredImageUrl: imageUrl
-                  ? `https:${imageUrl}`
+                  ? imageUrl
                   : "https://via.placeholder.com/300x200?text=Featured+Image",
               };
             });
@@ -128,12 +181,107 @@ const ArticleDetail = () => {
         }
       } catch (err) {
         console.error("Error fetching related articles:", err);
-        // Don't set error for related articles, just keep empty array
       }
     };
 
     if (slug) fetchArticle();
   }, [slug]);
+
+  // Render options untuk preserve 100% format Contentful
+  const renderOptions = {
+    renderMark: {
+      [MARKS.BOLD]: (text: any) => <strong>{text}</strong>,
+      [MARKS.ITALIC]: (text: any) => <em>{text}</em>,
+      [MARKS.CODE]: (text: any) => (
+        <code className="bg-gray-100 rounded px-1 py-[2px] font-mono">
+          {text}
+        </code>
+      ),
+      [MARKS.UNDERLINE as any]: (text: any) => <u>{text}</u>,
+    },
+    renderNode: {
+      [BLOCKS.HEADING_1]: (_node: any, children: any) => (
+        <h1 className="text-3xl font-bold my-6 leading-tight">{children}</h1>
+      ),
+      [BLOCKS.HEADING_2]: (_node: any, children: any) => (
+        <h2 className="text-2xl font-bold my-5 leading-tight">{children}</h2>
+      ),
+      [BLOCKS.HEADING_3]: (_node: any, children: any) => (
+        <h3 className="text-xl font-semibold my-4 leading-tight">{children}</h3>
+      ),
+      [BLOCKS.HEADING_4]: (_node: any, children: any) => (
+        <h4 className="text-lg font-semibold my-3 leading-tight">{children}</h4>
+      ),
+      [BLOCKS.HEADING_5]: (_node: any, children: any) => (
+        <h5 className="text-base font-semibold my-2 leading-tight">
+          {children}
+        </h5>
+      ),
+      [BLOCKS.HEADING_6]: (_node: any, children: any) => (
+        <h6 className="text-sm font-semibold my-2 leading-tight">{children}</h6>
+      ),
+      [BLOCKS.PARAGRAPH]: (_node: any, children: any) => (
+        <p className="mb-4 leading-relaxed text-base text-gray-700">
+          {children}
+        </p>
+      ),
+      [BLOCKS.QUOTE]: (_node: any, children: any) => (
+        <blockquote className="border-l-4 border-[#01b2b7] pl-6 italic my-6 bg-gray-50 py-4 pr-4 rounded">
+          {children}
+        </blockquote>
+      ),
+      [BLOCKS.UL_LIST]: (_node: any, children: any) => (
+        <ul className="list-disc ml-6 mb-4 space-y-2">{children}</ul>
+      ),
+      [BLOCKS.OL_LIST]: (_node: any, children: any) => (
+        <ol className="list-decimal ml-6 mb-4 space-y-2">{children}</ol>
+      ),
+      [BLOCKS.LIST_ITEM]: (_node: any, children: any) => (
+        <li className="text-base text-gray-700 leading-relaxed">{children}</li>
+      ),
+      [BLOCKS.HR]: () => <hr className="my-8 border-gray-300" />,
+      [INLINES.HYPERLINK]: (node: any, children: any) => {
+        const url = node.data.uri;
+        return (
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#01b2b7] underline hover:text-[#009fa3] transition-colors"
+          >
+            {children}
+          </a>
+        );
+      },
+      [INLINES.ENTRY_HYPERLINK]: (_node: any, children: any) => (
+        <span className="text-[#01b2b7] underline">{children}</span>
+      ),
+      [BLOCKS.EMBEDDED_ASSET]: (node: any) => {
+        const assetId = node?.data?.target?.sys?.id;
+        const asset = assetsMap ? assetsMap[assetId] : null;
+        const src = asset?.file?.url ? `https:${asset.file.url}` : "";
+        const alt = asset?.title || asset?.description || "Article image";
+
+        return src ? (
+          <figure className="my-8">
+            <img
+              src={src}
+              alt={alt}
+              className="w-full rounded-lg shadow-md"
+              loading="lazy"
+            />
+            {alt && alt !== "Article image" && (
+              <figcaption className="text-sm text-gray-600 mt-3 italic text-center">
+                {alt}
+              </figcaption>
+            )}
+          </figure>
+        ) : null;
+      },
+      [BLOCKS.EMBEDDED_ENTRY]: (_node: any) => null,
+      [INLINES.EMBEDDED_ENTRY]: (_node: any) => null,
+    },
+  };
 
   const handleShare = (platform: string) => {
     if (!article) return;
@@ -224,25 +372,30 @@ const ArticleDetail = () => {
           {article.title}
         </h1>
 
-        {/* Featured Image */}
-        <div className="w-full h-64 md:h-80 bg-gradient-to-br from-teal-200 to-teal-300 rounded-lg mb-8 flex items-center justify-center">
-          {article.featuredImageUrl.includes("placeholder") ? (
-            <span className="text-white text-lg font-medium">
-              Featured Image
-            </span>
-          ) : (
-            <img
-              src={article.featuredImageUrl}
-              alt={article.title}
-              className="w-full h-full object-cover rounded-lg"
-            />
-          )}
+        {/* Featured Image - Rasio 16:9 */}
+        <div className="w-full mb-8 flex items-center justify-center">
+          <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
+            {article.featuredImageUrl ? (
+              <img
+                src={article.featuredImageUrl}
+                alt={article.title}
+                className="absolute inset-0 w-full h-full object-cover rounded-lg shadow-lg"
+                loading="lazy"
+              />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-teal-200 to-teal-300 rounded-lg shadow-lg">
+                <span className="text-white text-lg font-medium">
+                  Featured Image
+                </span>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Article Content */}
         <div className="prose prose-lg max-w-none mb-12">
           {article.articleBody &&
-            documentToReactComponents(article.articleBody)}
+            documentToReactComponents(article.articleBody, renderOptions)}
         </div>
 
         {/* Share Section */}
@@ -314,6 +467,7 @@ const ArticleDetail = () => {
                       src={relatedArticle.featuredImageUrl}
                       alt={relatedArticle.title}
                       className="w-full h-full object-cover"
+                      loading="lazy"
                     />
                   </div>
                   <div className="p-6">
